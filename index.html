@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Eleştirel Okuma Atölyesi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: tek sütunlu çalışma kağıdı; yapışkan sekme çubuğu; her soru = soru + yazma alanı + kırmızı kalemle cevap */
+:root{
+  --paper:#f6f7f9; --sheet:#ffffff; --ink:#1b2333; --muted:#5b6476; --line:#dde1e8;
+  --pen:#c2412d; --pen-soft:#fbe9e5; --blue:#2e5aac; --blue-soft:#e8eefa; --ok:#2f7d4f;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11151d; --sheet:#181e29; --ink:#e4e8f0; --muted:#9aa3b5; --line:#2b3344;
+  --pen:#f0806b; --pen-soft:#3a201c; --blue:#8fb0ee; --blue-soft:#1d2a44; --ok:#7cc79a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11151d; --sheet:#181e29; --ink:#e4e8f0; --muted:#9aa3b5; --line:#2b3344;
+  --pen:#f0806b; --pen-soft:#3a201c; --blue:#8fb0ee; --blue-soft:#1d2a44; --ok:#7cc79a; color-scheme:dark}
+
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:820px;margin:0 auto}
+header.top{padding-block:40px 20px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--pen)}
+h1{font:800 clamp(30px,6vw,46px)/1.05 var(--f-display);margin:10px 0 12px;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);
+  display:flex;gap:6px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:28px}
+nav.tabs a{font:600 14px/1 var(--f-body);color:var(--ink);text-decoration:none;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--sheet)}
+nav.tabs a[aria-current="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+nav.tabs a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:-12px 0 24px}
+button.ghost{font:600 13px/1 var(--f-body);color:var(--muted);background:transparent;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;cursor:pointer}
+button.ghost:hover{color:var(--ink);border-color:var(--muted)}
+
+section.view{display:grid;gap:28px}
+h2{font:800 26px/1.15 var(--f-display);margin:0;text-wrap:balance}
+h3{font:600 19px/1.25 var(--f-display);margin:0 0 10px;text-wrap:balance}
+.block{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,4vw,28px)}
+.block p{margin:0 0 10px}.block p:last-child{margin-bottom:0}
+.block ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font:600 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-weight:600;white-space:nowrap}
+.code{display:inline-block;font:500 12px/1 var(--f-mono);padding:4px 6px;border-radius:5px;background:var(--blue-soft);color:var(--blue);vertical-align:1px}
+.tip{border-left:3px solid var(--pen);padding:8px 0 8px 14px;color:var(--muted);font-size:15px;margin-top:12px}
+.tip b{color:var(--pen)}
+ol.five{margin:0;padding-left:22px;display:grid;gap:4px}
+.ex{color:var(--muted);font-style:italic}
+
+.passage{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,4vw,28px)}
+.passage h3{font-size:20px}
+.passage p{margin:0;line-height:1.75}
+.passage sup,.n{font:500 11px/1 var(--f-mono);color:var(--pen);padding-right:3px}
+.instr{color:var(--muted);margin:0;font-style:italic}
+
+.q{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px clamp(16px,4vw,24px);display:grid;gap:12px}
+.qhead{display:flex;gap:12px;align-items:baseline}
+.qnum{font:500 13px/1 var(--f-mono);color:var(--sheet);background:var(--ink);border-radius:6px;padding:5px 7px;flex:none}
+.qtext{min-width:0}
+.qtext ul,.qtext ol{margin:6px 0 0;padding-left:20px;display:grid;gap:3px}
+.qtext blockquote{margin:8px 0 0;padding:10px 14px;background:var(--paper);border-radius:8px;font-style:italic}
+.task-title{font:600 13px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--pen);margin:0 0 4px}
+.guide{font-size:14px;color:var(--muted);margin:0 0 6px}
+textarea{width:100%;box-sizing:border-box;min-height:64px;resize:vertical;font:15px/1.5 var(--f-body);color:var(--ink);
+  background:transparent;border:none;border-bottom:1px dashed var(--line);
+  background-image:repeating-linear-gradient(transparent 0 30px,var(--line) 30px 31px);line-height:31px;padding:0 2px}
+textarea::placeholder{color:var(--muted);opacity:.7}
+details{border-radius:8px}
+summary{cursor:pointer;font:600 14px/1 var(--f-body);color:var(--pen);list-style:none;display:inline-flex;align-items:center;gap:6px;padding:6px 0}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font:500 15px/1 var(--f-mono)}
+details[open] summary::before{content:"−"}
+.ans{margin-top:8px;padding:12px 14px;background:var(--pen-soft);border-radius:8px;color:var(--ink);font-size:15px}
+.ans ul{margin:4px 0 0;padding-left:20px;display:grid;gap:3px}
+.ans p{margin:0 0 6px}.ans p:last-child{margin:0}
+.fb li{margin-bottom:4px}
+.fb .ok{color:var(--ok);font-weight:600}
+.fb .fix{color:var(--pen);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{nav.tabs,.tools,textarea{display:none}section.view[hidden]{display:grid!important}details>*{display:block}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Eleştirel Düşünme · Dil ve Retorik</div>
+    <h1>Eleştirel Okuma Atölyesi</h1>
+    <p class="lede">Önce terimleri oku, sonra iki çalışma kağıdını çöz. Cevabını kutuya yaz, ardından kırmızı kalemle doğru cevaba bak. Yazdıkların yalnızca bu tarayıcıda saklanır.</p>
+  </header>
+
+  <nav class="tabs" aria-label="Bölümler">
+    <a href="#terimler" data-view="terimler">Terimler</a>
+    <a href="#haber" data-view="haber">Kağıt A · Haber</a>
+    <a href="#retorik" data-view="retorik">Kağıt B · Retorik</a>
+    <a href="#notlar" data-view="notlar">Kağıdındaki cevaplar</a>
+  </nav>
+  <div class="tools">
+    <button class="ghost" id="openAll" type="button">Bu bölümdeki tüm cevapları aç</button>
+    <button class="ghost" id="closeAll" type="button">Hepsini kapat</button>
+    <button class="ghost" id="clearMine" type="button">Yazdıklarımı sil</button>
+  </div>
+
+  <!-- TERİMLER -->
+  <section class="view" id="v-terimler" data-view="terimler">
+    <div class="block">
+      <h3>Dedektifin 5 sorusu</h3>
+      <p class="guide">Biri seni ikna etmeye çalışırken gerçekten bir neden mi veriyor, yoksa sözcüklerin gücünü mü kullanıyor?</p>
+      <ol class="five">
+        <li>Birden fazla şey mi söylüyor?</li>
+        <li>Sınırları belli mi?</li>
+        <li>Gizli kıyas ya da eksik niceleyici var mı?</li>
+        <li>Söylenmeyen bir şey mi ima ediliyor?</li>
+        <li>Neden mi verildi, yoksa duyguya mı dokunuldu?</li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <h3>A · Temel yapı taşları</h3>
+      <div class="tbl"><table>
+        <tr><th>Terim</th><th>Anlamı</th><th>Örnek</th></tr>
+        <tr><td>Önerme</td><td>Doğru ya da yanlış olabilen tek iddia</td><td class="ex">Tarife 1 Ocak'ta yürürlüğe girdi.</td></tr>
+        <tr><td>Argüman</td><td>Öncüller (gerekçeler) + bir sonuç. İkna etmeye çalışır. Göstergeleri: <i>çünkü, bu yüzden, dolayısıyla</i></td><td class="ex">Baraj boşaldı, bu yüzden zam gerekli.</td></tr>
+        <tr><td>Açıklama</td><td>Sonuç zaten kabul edilmiş; yalnızca neden olduğu anlatılır</td><td class="ex">Baraj boşaldığı için su kesildi.</td></tr>
+        <tr><td>Bildirim</td><td>Yalnızca bilgi aktarır, ikna etmeye çalışmaz</td><td class="ex">Haberlerin çoğu</td></tr>
+        <tr><td>Ana iddia</td><td>Metnin asıl söylediği tek önerme</td><td></td></tr>
+        <tr><td>Örtük sonuç</td><td>Açıkça söylenmeyen ama cümlelerin sıralanışıyla okura düşündürülen sonuç</td><td></td></tr>
+      </table></div>
+      <p class="tip"><b>Çıkarma testi:</b> Bir cümleyi metinden çıkar. İddia aynı güçle duruyorsa o cümle argümanın parçası değildir.</p>
+    </div>
+
+    <div class="block">
+      <h3>B · Anlam sorunları</h3>
+      <ul>
+        <li><b>Bulanıklık</b> <span class="code">B</span>: İfadenin iki ayrı, net anlamı vardır. İki türü var:
+          <ul>
+            <li><b>Sözlüksel</b> <span class="code">SL</span>: Sorun tek bir sözcükte. <span class="ex">Pencerede bir <b>el</b> gördüm.</span> (el uzvu / yabancı biri)</li>
+            <li><b>Sözdizimsel</b> <span class="code">SD</span>: Sözcükler net ama dizilişi iki okumaya izin veriyor. <span class="ex">Ali, kardeşini dürbünle gördü.</span> (dürbün kimde?)</li>
+          </ul></li>
+        <li><b>Belirsizlik</b> <span class="code">Biz</span> <span class="code">BLZ</span>: Anlam açık ama sınırı belli değil: <i>kel, adil, uzun, zengin, sınırlı</i>. Kaç tel saç kalınca kel olunur? (Görev 2'de "Biz", final vakadaki kod listesinde "BLZ" olarak geçer.)</li>
+        <li><b>Yananlam</b>
+          <ul>
+            <li><b>Birincil</b>: Tanım gereği zorunlu özellik (kısrak = dişi at). İhlali <b>çelişki</b> olur: <span class="ex">erkek kısrak</span>.</li>
+            <li><b>İkincil</b>: Tipik ama zorunlu değil (kütüphaneci = sessiz). İhlali <b>sürpriz</b> olur.</li>
+            <li><b>Eğretileme</b> (metafor) ikincil yananlamla çalışır. <span class="ex">"Ali tam bir aslan."</span> Aslanın tanımsal özelliği (dört ayaklı memeli) değil, tipik özelliği (cesaret) aktarılır.</li>
+          </ul></li>
+      </ul>
+      <p class="tip"><b>İpucu:</b> Tek sözcüğü parmakla gösterebiliyorsan SL, dizilişi değiştirince düzeliyorsa SD. Yananlam için sor: "Bu özelliği taşımayan bir X olabilir mi?" "Olamaz" ise birincil, "Olabilir ama tuhaf" ise ikincil.</p>
+    </div>
+
+    <div class="block">
+      <h3>C · Gizli mesajlar</h3>
+      <ul>
+        <li><b>Retorik soru</b> <span class="code">RS</span>: Soru kılığında önerme. Bildirme cümlesine çevir: <span class="ex">"Bu saatten sonra çalışmanın ne anlamı var?" → Çalışmanın anlamı yok.</span></li>
+        <li><b>İroni</b>: Söylenenin tersini kastetmek. <span class="ex">Üç saat geç kalana: "Tam vaktinde geldin."</span> <b>Kasıt</b> ise söylenenin aynen kastedilmesidir. Hangisi olduğunu bağlam belirler: kişi gerçekten zamanında geldiyse aynı cümle kasıttır.</li>
+        <li><b>Örtük görelilik</b> <span class="code">ÖG</span> / eksik kıyas sınıfı: Karşılaştırma var ama neye göre olduğu yok. <span class="ex">"Kiramız düşük." Neye göre?</span> Cevapta kıyas sınıfını <b>adlandırman</b> gerekir: diğer yurtlara, geçen yıla, piyasaya…</li>
+        <li><b>Niceleyici</b> <span class="code">NC</span>: <b>Güçlü genelleme</b> (<i>tüm, hiçbir, asla, her</i>) tek <b>karşı örnekle</b> çürür. <b>Zayıf genelleme</b> (<i>çoğu, genellikle, bazı</i>) tek örnekle çürümez. Niceleyici yoksa okur en güçlü okumayı ("hepsi") varsayar. Güçlü bir iddiayı savunulabilir hâle getirmek için onu zayıf genellemeye dönüştür.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>D · Anlamın üç katmanı</h3>
+      <ul>
+        <li><b>Önerme içeriği</b>: Ne söylendi; doğru ya da yanlış olabilir.</li>
+        <li><b>Retorik kuvvet</b> <span class="code">RT</span>: Önermeye bir şey eklemeyen "vitrin süsü". <span class="ex">"%20 zam" ile "öğrencilerin sırtına yük" aynı önerme; ikincisi duygu ekliyor.</span></li>
+        <li><b>Sezdirim</b> <span class="code">SZ</span>: Söylenmeyen ama makul dinleyicinin anlayacağı şey. <span class="ex">Referans mektubunda yalnızca "kıyafeti düzgündü" yazıyorsa: söylenecek başka iyi şey yok. "Bazı öğrenciler geçti" → hepsi geçmedi.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>E · Retorik tuzaklar</h3>
+      <p><b>Retorik tuzak</b> neden sunmaz, sözcüklerin gücüne dayanır. <b>Safsata</b> ise öncül-sonuç yapısı olan kötü bir argümandır. Sor: "Burada öncül-sonuç var mı?"</p>
+      <div class="tbl"><table>
+        <tr><th>Tuzak</th><th>Nasıl tanırsın</th></tr>
+        <tr><td>Yeniliğe başvuru</td><td class="ex">yepyeni, yeni nesil, hâlâ eskiyle mi…</td></tr>
+        <tr><td>Popülerliğe başvuru</td><td class="ex">en çok tercih edilen, milyonlar seçti</td></tr>
+        <tr><td>Merhamete başvuru</td><td>Acıma duygusuna oynar</td></tr>
+        <tr><td>Şirinliğe başvuru</td><td class="ex">minik dostlarımız, minicik bir bağış</td></tr>
+        <tr><td>Korkuya başvuru</td><td class="ex">Önlem almazsan sıradaki sen olabilirsin.</td></tr>
+        <tr><td>Alaya başvuru</td><td>Karşı görüşü küçümser, gülünç gösterir</td></tr>
+        <tr><td>Korkutucu tırnak</td><td>Sözcüğü alay ya da mesafe için tırnağa almak: <i>'uzman', 'duyarlı'</i>. Kurallı alıntıda ise kaynak bellidir ve sözcükler aynen aktarılır.</td></tr>
+        <tr><td>Sezdirimden faydalanma</td><td>Yalan söylemeden yanlış izlenim yaratmak: <i>"Sıfır şeker!"</i> + küçük puntoyla <i>"ilave şeker içermez"</i></td></tr>
+        <tr><td>Yönlendirici soru</td><td>Cevabı içine gömülü soru</td></tr>
+        <tr><td>Duman perdesi</td><td>Soruyu başka konuya kaydırmak</td></tr>
+        <tr><td>Moda sözcük / jargon</td><td>Etkileyici ama içi boş: <i>konsept, optimizasyon, sinerji</i></td></tr>
+        <tr><td>Çarpıtma (spin) / örtmece</td><td>Kötü haberi yumuşak sözcükle sunmak: <i>zam → "güncelleme"</i>, <i>işten çıkarma → "yollarımızı ayırdık"</i></td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3>F · Haber okurken</h3>
+      <ul>
+        <li><b>Belirsiz kaynak</b>: "bir yetkili", "uzmanlar", "ajansımızın edindiği bilgiye göre", "kulisler"</li>
+        <li><b>Rakam tuzağı</b>: "3 <b>puan</b> düştü" ile "%3 düştü" aynı değil. %30'dan %27'ye inmek 3 puan, ama %10'luk bir düşüş. Hangi iki rakam arasında olduğu verilmezse değerlendirilemez.</li>
+        <li><b>Değerlendirme katan sözcük</b>: "başardı", "uzun süredir beklenen", "net bir çoğunluk"</li>
+        <li><b>Doğrulanabilir bilgi</b>: Tarih, karar, oylama gibi kontrol edilebilir olgular. Yorum ve nitelemeler bunun dışında kalır.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KAĞIT A -->
+  <section class="view" id="v-haber" data-view="haber" hidden>
+    <h2>Kağıt A · Haber analizi</h2>
+    <p class="instr">Haberi iki kez oku: ilkinde ne anlattığını, ikincisinde nasıl anlattığını izle. Cümle numaralarını kullanarak yanıtla.</p>
+    <div class="passage">
+      <h3>Yeşilova'da toplu taşımada yeni dönem</h3>
+      <p><span class="n">(1)</span>Yeşilova Belediyesi'ne bağlı YEŞTAŞ'ın toplu taşıma ücretlerinde yaptığı yeniden yapılandırma, 1 Şubat itibarıyla uygulanmaya başladı. <span class="n">(2)</span>Tam bilet ücreti makul bir seviyede güncellenirken, öğrenci kartlarına tanınan aylık biniş hakkı artırıldı. <span class="n">(3)</span>Belediye yetkilileri, yolcuların büyük çoğunluğunun değişikliği fark etmeyeceğini söyledi. <span class="n">(4)</span>Kulislerde konuşulanlara göre karar, kentin ulaşım sorununa kalıcı bir çözüm getiriyor. <span class="n">(5)</span>Adının açıklanmasını istemeyen bir yönetici, "Kaliteli hizmetin bir bedeli var" dedi. <span class="n">(6)</span>YEŞTAŞ, geçen yıl ortalama bekleme süresini yüzde 15 kısaltmayı başardı. <span class="n">(7)</span>Meslek odalarının "gizli zam" diye eleştirdiği karar, ulaşım komisyonunda oy birliğine yakın bir destekle onaylandı. <span class="n">(8)</span>Akaryakıt fiyatlarındaki hızlı yükseliş, belediye bütçelerini zorluyor. <span class="n">(9)</span>Bazı çevreler, kararın diğer hizmetlere de örnek olabileceğini belirtiyor.</p>
+    </div>
+    <div class="qs" id="qs-haber" style="display:grid;gap:14px"></div>
+    <p class="tip"><b>İpucu:</b> Bir cümleyi metinden çıkar. İddia aynı güçle duruyorsa o cümle argümanın parçası değildir.</p>
+  </section>
+
+  <!-- KAĞIT B -->
+  <section class="view" id="v-retorik" data-view="retorik" hidden>
+    <h2>Kağıt B · Dil ve Retorik</h2>
+    <p class="instr">Kodlar: SL (sözlüksel bulanıklık), SD (sözdizimsel bulanıklık), BLZ (belirsizlik), RS (retorik soru), ÖG (örtük görelilik), NC (niceleyici), SZ (sezdirim), RT (retorik tuzak / kuvvet). Birden fazla tuzak varsa hepsini yaz.</p>
+    <div class="qs" id="qs-retorik" style="display:grid;gap:14px"></div>
+  </section>
+
+  <!-- NOTLAR -->
+  <section class="view" id="v-notlar" data-view="notlar" hidden>
+    <h2>Kağıdındaki cevaplara notlar</h2>
+    <div class="block fb">
+      <h3>Karaçam su tarifesi kağıdı</h3>
+      <ul>
+        <li><span class="fix">S1:</span> Yazdığın cevap aslında örtük sonuç. Ana iddia düz olgu: "KARSU'nun su tarifesinde yapılan düzenleme 1 Ocak'ta yürürlüğe girdi."</li>
+        <li><span class="fix">S2 (boş):</span> Açıkça kurulmuş bir argüman yok, metin bir bildirim. Ama (4), (6) ve (8) yan yana dizilerek örtük bir sonuca işaret ediyor.</li>
+        <li><span class="fix">S3:</span> Ölçüt eksik. "Sınırlı": neye göre? Enflasyona mı, geçen yılki zamma mı, başka kentlere mi? "Net çoğunluk": kaç oya karşı kaç oy?</li>
+        <li><span class="ok">S4:</span> Doğru, veri sunulmuyor.</li>
+        <li><span class="fix">S5:</span> Tuzak puan ile yüzde farkı. Hangi iki rakam arasında olduğu verilmemiş. Değerlendirme katan sözcük "başardı".</li>
+        <li><span class="ok">S6:</span> "Alıntı" doğru. Gerekçe: kaynak (muhalefet) belli, yani kurallı alıntı. Haber kendi dilinde "düzenleme" diyerek bu ifadeye mesafe koyuyor.</li>
+        <li><span class="ok">S7:</span> Doğru yönde: "düzenleme gerekli ve doğru".</li>
+        <li><span class="fix">S8:</span> Yarım kalmış. Örnek: "KARSU'nun su tarifesindeki düzenleme 1 Ocak'ta yürürlüğe girdi. Konut abonelerinde metreküp ücreti artırıldı, indirimli kademenin üst sınırı genişletildi. Düzenleme belediye meclisinde kabul edildi."</li>
+        <li><span class="fix">Gözden kaçan:</span> (2)'deki "güncellenirken" bir örtmece (= zam). (5) anonim kaynak, (9) "uzmanlar" belirsiz kaynak.</li>
+      </ul>
+    </div>
+    <div class="block fb">
+      <h3>Dil ve Retorik kağıdı</h3>
+      <ul>
+        <li><span class="fix">Görev 1 (boş):</span> a SL ("el": uzuv / yabancı), b SD (dürbün kimde?), c SD ("ucuz" çocuğa mı kıyafete mi bağlı?), d SL ("dinlendi": ifadesi alındı / istirahat etti).</li>
+        <li><span class="ok">Görev 2 ve 3:</span> Doğru.</li>
+        <li><span class="ok">Görev 4a, 4b:</span> Doğru.</li>
+        <li><span class="fix">Görev 4c:</span> Kavramın adını doğru verdin ama soru kıyas sınıfını istiyor: "Diğer yurtlara / piyasaya / geçen yıla göre düşük."</li>
+        <li><span class="fix">Görev 5 (boş):</span> a) Kaliteli tek bir ucuz ürün yeter. Zayıf hâli: "Ucuz ürünlerin bir kısmı kalitesiz olabilir." b) Yabancı dili zayıf tek bir kişi yeter. Zayıf hâli: "Yurt dışında eğitim alanlar genellikle yabancı dili daha iyi bilir."</li>
+        <li><span class="fix">Görev 6 (boş):</span> a) Aynı önerme; ikinci cümle retorik kuvvet (yük, suçlama) ekliyor. b) Söylenen: kıyafeti düzgündü. Sezdirilen: yetkinliği hakkında söylenecek iyi bir şey yok.</li>
+        <li><span class="ok">Görev 7.1:</span> Popülerlik + yenilik doğru; "hâlâ… mı uğraşıyorsun?" aynı zamanda yönlendirici soru.</li>
+        <li><span class="fix">Görev 7 (boş kalanlar):</span> 2 korkutucu tırnak + alay; 3 duman perdesi; 4 sezdirimden faydalanma (küçük punto); 5 örtmece/spin + jargon ("organizasyonel verimlilik").</li>
+        <li><span class="fix">Görev 8 (boş):</span> "en çok tercih edilen" popülerlik; "yepyeni konsept" yenilik + moda sözcük; "Neden hâlâ… mahkûm olasınız ki?" RS + yüklü sözcük; "şeker yok*" + "ilave şeker içermez" SZ; "fiyatlarımız düşük" ÖG (neye göre? diğer kafeteryalara? söylenmiyor); 'duyarlı' korkutucu tırnak; "damak zevkinden anladığını sanmıyoruz" alay.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+const H = [
+ {q:"Haberin ana iddiası nedir? Tek bir basit önerme olarak yaz.",
+  a:"YEŞTAŞ'ın toplu taşıma ücret düzenlemesi 1 Şubat'ta uygulanmaya başladı."},
+ {q:"Metinde kurulmuş bir argüman var mı? <i>(argüman / açıklama / bildirim)</i> Gerekçelendir.",
+  a:"<p>Açık bir argüman yok, metin bir <b>bildirim</b>. Öncül-sonuç göstergesi yok.</p><p>Ama cümlelerin dizilişi örtük bir sonuca işaret ediyor (bkz. soru 9). Çıkarma testi: (6) ya da (8) silinse ana iddia aynen duruyor.</p>"},
+ {q:"(2) \"makul bir seviyede\" ve (7) \"oy birliğine yakın\": eksik kıyas sınıfı ne? Neye göre?",
+  a:"<p>\"Makul\": neye göre? Enflasyona mı, eski fiyata mı, başka kentlere mi? Ayrıca belirsiz bir sözcük.</p><p>\"Oy birliğine yakın\": kaç oya karşı kaç oy? Sayı verilmemiş.</p>"},
+ {q:"(3) \"büyük çoğunluğu\": metin bu niceleyiciyi destekleyen bir veri sunuyor mu? \"Fark etmeyecek\" ile \"etkilenmeyecek\" aynı şey mi?",
+  a:"Veri yok. \"Fark etmemek\" etkilenmemek demek değil: fiyat artar ama yolcu bunu fark etmeyebilir. Cümle aslında bir <b>sezdirim</b>; zammın küçük olduğu izlenimi veriliyor."},
+ {q:"(6) \"yüzde 15 kısaltmayı başardı\": hangi iki rakam arası? Hangi sözcük değerlendirme katıyor? Bu bilginin ücret kararıyla ilgisi var mı?",
+  a:"Hangi iki rakam arasında olduğu verilmemiş (10 dakikadan 8,5'e mi, 40'tan 34'e mi?). Değerlendirme katan sözcük <b>\"başardı\"</b>. Ücretle doğrudan ilgisi yok, ama olumlu bir hava yaratıyor."},
+ {q:"(7) Tırnaklar kurallı alıntı mı, korkutucu tırnak mı? Gerekçelendir.",
+  a:"<b>Kurallı alıntı</b>: kaynak (meslek odaları) belli, sözcükler aynen aktarılıyor. Haber kendi dilinde \"karar\" ve \"yapılandırma\" diyerek bu ifadeye mesafe koyuyor."},
+ {q:"(1) \"yeniden yapılandırma\" ve (2) \"güncellenirken\": hangi dil aracı kullanılmış? Nötr hâlini yaz.",
+  a:"<b>Örtmece / spin</b>. Nötr hâli: \"Tam bilet ücretine zam yapıldı.\""},
+ {q:"(4), (5) ve (9)'daki kaynakların her birinin sorunu ne?",
+  a:"<ul><li>(4) Kaynak belirsiz: \"kulisler\".</li><li>(5) Kaynak anonim; söylenen bir slogan, kanıt değil.</li><li>(9) Kaynak belirsiz: \"bazı çevreler\".</li></ul>"},
+ {q:"(4), (6) ve (8) birlikte hangi <b>örtük sonucu</b> destekliyormuş gibi diziliyor?",
+  a:"\"Zam gerekliydi ve haklı; kurum da işini iyi yapıyor.\""},
+ {q:"Haberi yalnızca doğrulanabilen bilgilerle üç cümlede yeniden yaz.",
+  a:"YEŞTAŞ'ın ücret düzenlemesi 1 Şubat'ta uygulanmaya başladı. Tam bilet ücreti artırıldı, öğrenci kartlarının aylık biniş hakkı yükseltildi. Karar ulaşım komisyonunda onaylandı; meslek odaları kararı eleştirdi."}
+];
+
+const R = [
+ {t:"Görev 1 · Bulanıklık avı", g:"SL ya da SD yaz, kaynağı göster. Sonra (c)'yi bulanıklıktan arındırarak yeniden yaz.",
+  q:"<ul><li>a) Hafta sonu çaya gittik.</li><li>b) Güzel kızın annesi kapıyı açtı.</li><li>c) Eski öğrenci yurdu satıldı.</li><li>d) Gemidekiler karayı görünce bağırdı.</li></ul>",
+  a:"<ul><li>a) SL: \"çay\" (içecek / akarsu)</li><li>b) SD: \"güzel\" kıza mı anneye mi bağlı?</li><li>c) SD: [eski öğrenci] yurdu mu, eski [öğrenci yurdu] mu? Arındırılmış: \"Öğrenci yurdunun eski binası satıldı.\"</li><li>d) SL: \"kara\" (kara parçası / siyah olan)</li></ul>"},
+ {t:"Görev 2 · Belirsizlik radarı", g:"B (bulanık) / Biz (belirsiz) / İkisi de. Tek cümleyle gerekçelendir.",
+  q:"<ul><li>a) \"kısa mola\"</li><li>b) \"yaz\" (Bu yaz güzel geçti. / Adını deftere yaz.)</li><li>c) \"zengin\"</li><li>d) \"sıcak ortam\"</li></ul>",
+  a:"<ul><li>a) Biz: kaç dakika kısadır?</li><li>b) B: iki ayrı, net anlam (mevsim / yazmak).</li><li>c) Biz: sınırı belli değil.</li><li>d) İkisi de: \"sıcak\" iki anlamlı (sıcaklık / samimiyet) ve derecesi de belirsiz.</li></ul>"},
+ {t:"Görev 3 · Yananlam laboratuvarı", g:"Çelişki (birincil ihlal) mi, sürpriz (ikincil ihlal) mi?",
+  q:"<ul><li>a) Evli bir bekâr</li><li>b) Tatlı sevmeyen bir pastacı</li><li>c) Uçamayan bir kuş</li><li>d) Dört köşeli bir üçgen</li><li>e) \"Annem bu evin direğidir.\" Bu eğretileme hangi yananlamla çalışıyor?</li></ul>",
+  a:"<ul><li>a) Çelişki</li><li>b) Sürpriz</li><li>c) Sürpriz (penguen)</li><li>d) Çelişki</li><li>e) İkincil yananlamla: direğin tanımsal özelliği (ahşap/beton taşıyıcı) değil, tipik özelliği (yükü taşımak, ayakta tutmak) aktarılıyor.</li></ul>"},
+ {t:"Görev 4 · Gizli mesaj çözücü", g:"Retorik soruyu bildirme cümlesine çevir; ironiyi ve eksik kıyas sınıfını bul.",
+  q:"<ul><li>a) \"Kim ister ki daha az maaş almayı?\" Bildirme cümlesine çevir.</li><li>b) Sınavdan 20 alan arkadaşına: \"Harika, tebrikler!\" İroni mi, kasıt mı?</li><li>c) \"Bu telefon çok daha hızlı.\" Eksik kıyas sınıfı nedir?</li><li>d) \"Bu kadar basit bir şeyi anlamamak mümkün mü?\" Ne söylendi, ne kastedildi?</li></ul>",
+  a:"<ul><li>a) \"Kimse daha az maaş almak istemez.\"</li><li>b) İroni: söylenenin tersi kastediliyor. Arkadaş 100 almış olsaydı aynı cümle kasıt olurdu.</li><li>c) Neyden daha hızlı? Eski modelden mi, rakip markadan mı?</li><li>d) RS. Söylenen: \"Anlamamak mümkün değil.\" Kastedilen: \"Sen anlamıyorsun, demek ki bir sorun var\" (alay).</li></ul>"},
+ {t:"Görev 5 · Niceleyici ayarı", g:"(i) Bir karşı örnek bul. (ii) Fikri savunulabilir zayıf bir genellemeye dönüştür.",
+  q:"<ul><li>a) Sınavda kopya çeken herkes yakalanır.</li><li>b) Sosyal medya kullanan gençler asla kitap okumaz.</li><li>c) Kediler suyu sevmez. (Niceleyici yok: okur hangisini varsayar?)</li></ul>",
+  a:"<ul><li>a) Yakalanmayan tek bir kişi yeter. Zayıf: \"Kopya çekenlerin çoğu er geç yakalanır.\"</li><li>b) Kitap okuyan tek bir genç yeter. Zayıf: \"Sosyal medyayı yoğun kullanan bazı gençler daha az kitap okuyor.\"</li><li>c) Okur \"tüm kediler\" diye anlar; suyu seven tek bir kedi çürütür. Zayıf: \"Kedilerin çoğu sudan hoşlanmaz.\"</li></ul>"},
+ {t:"Görev 6 · Anlamın üç katmanı", g:"Önerme içeriği, retorik kuvvet, sezdirim.",
+  q:"<ul><li>a) (1) \"Kira %30 arttı.\" (2) \"Ev sahipleri kiracıların cebine bir kez daha uzandı.\" Aynı önerme mi? İkinci cümle fazladan ne yapıyor?</li><li>b) Arkadaşın yaptığı yemek için: \"Tabaklar çok şıkmış.\" Ne söylendi, ne sezdirildi?</li><li>c) \"Bazı öğrenciler sınavı geçti.\" Ne sezdiriliyor?</li></ul>",
+  a:"<ul><li>a) Aynı önerme. İkinci cümle retorik kuvvet ekliyor: ev sahiplerini suçluyor, duygusal yük bindiriyor.</li><li>b) Söylenen: tabaklar şık. Sezdirilen: yemek iyi değil.</li><li>c) Hepsi geçmedi.</li></ul>"},
+ {t:"Görev 7 · Tuzak avı", g:"Sor: Burada öncül-sonuç var mı? Süslü sözcüğü çıkar; geriye hangi iddia kalıyor?",
+  q:"<ol><li>\"Milyonlarca aile X deterjanını seçti. Siz hâlâ neyi bekliyorsunuz?\"</li><li>\"Minik patili dostlarımız için minicik bir bağışa ne dersiniz?\"</li><li>\"Bu alarmı takmadıysanız, bu gece sıradaki ev sizinki olabilir.\"</li><li>Muhabir: \"Okulların ısınma sorunu ne zaman çözülecek?\" Bakan: \"Önce geçmiş yönetimin bıraktığı enkaza bakalım.\"</li><li>\"Diş hekimlerinin 10'da 9'u ağız sağlığına önem verir. X diş fırçası.\"</li><li>\"Fiyat optimizasyonu kapsamında ürünlerimizi yeni bir değer seviyesine taşıdık.\"</li></ol>",
+  a:"<ol><li>Popülerliğe başvuru + yönlendirici soru</li><li>Şirinliğe + merhamete başvuru</li><li>Korkuya başvuru</li><li>Duman perdesi</li><li>Sezdirimden faydalanma: hekimlerin bu fırçayı önerdiği sezdiriliyor ama söylenmiyor.</li><li>Jargon / moda sözcük + örtmece (= zam)</li></ol>"},
+ {t:"Görev 8 · Final vaka", g:"En az 5 olgu ya da tuzak bul; alıntı ve kodla (SL, SD, BLZ, RS, ÖG, NC, SZ, RT). \"Ücretlerimiz uygun\" neye göre söylenmiş?",
+  q:"<blockquote>\"Şehrin en çok konuşulan spor salonu artık mahallenizde! Neden hâlâ eski usul, sıkıcı egzersizlerle zaman kaybedesiniz ki? Yeni nesil 'akıllı antrenman' sistemimizle üyelerimizin %90'ı ilk ayda fark gördü*. Üstelik ücretlerimiz uygun. Sporu 'gereksiz' bulan 'uzman' arkadaşlarımıza da kapımız açık; belki onlar da bir gün formda olmanın ne demek olduğunu öğrenir.\"<br><small>*Ankete katılan 20 üye arasında.</small></blockquote>",
+  a:"<ul><li>\"En çok konuşulan\": popülerlik, ÖG/BLZ (kim konuşuyor, neye göre?)</li><li>\"Neden hâlâ… ki?\": RS + yönlendirici soru + yeniliğe başvuru</li><li>\"Yeni nesil 'akıllı antrenman'\": moda sözcük / jargon (RT)</li><li>\"%90 fark gördü*\": SZ. Dipnota göre yalnızca 20 kişi; \"fark\" da belirsiz.</li><li>\"Uygun\": ÖG. Diğer salonlara mı, piyasaya mı göre? Söylenmiyor.</li><li>'gereksiz' 'uzman': korkutucu tırnak + alay</li><li>\"Belki bir gün öğrenir\": alaya başvuru</li></ul>"}
+];
+
+function store(){ try{ return window.localStorage; }catch(e){ return null; } }
+function render(list, el, prefix, isTask){
+  el.innerHTML = list.map((it,i)=>{
+    const id = prefix+"-"+(i+1);
+    const head = isTask ? `<div><p class="task-title">${it.t}</p><p class="guide">${it.g}</p>${it.q}</div>` : it.q;
+    return `<article class="q"><div class="qhead"><span class="qnum">${isTask? (i+1) : (i+1)+"."}</span><div class="qtext">${head}</div></div>
+      <textarea id="${id}" aria-label="Cevabın, soru ${i+1}" placeholder="Cevabını buraya yaz…"></textarea>
+      <details><summary>Cevabı göster</summary><div class="ans">${it.a}</div></details></article>`;
+  }).join("");
+}
+render(H, document.getElementById("qs-haber"), "a", false);
+render(R, document.getElementById("qs-retorik"), "b", true);
+
+const ls = store();
+document.querySelectorAll("textarea").forEach(t=>{
+  try{ const v = ls && ls.getItem("eo-"+t.id); if(v) t.value = v; }catch(e){}
+  t.addEventListener("input", ()=>{ try{ ls && ls.setItem("eo-"+t.id, t.value); }catch(e){} });
+});
+
+const views = ["terimler","haber","retorik","notlar"];
+function current(){ const h = location.hash.slice(1); return views.includes(h) ? h : "terimler"; }
+function show(){
+  const v = current();
+  document.querySelectorAll("section.view").forEach(s=> s.hidden = s.dataset.view !== v);
+  document.querySelectorAll("nav.tabs a").forEach(a=> a.setAttribute("aria-current", a.dataset.view===v ? "true":"false"));
+  const hasAns = v==="haber" || v==="retorik";
+  document.querySelector(".tools").hidden = !hasAns;
+}
+window.addEventListener("hashchange", ()=>{ show(); window.scrollTo(0,0); });
+show();
+
+function activeSection(){ return document.getElementById("v-"+current()); }
+document.getElementById("openAll").onclick = ()=> activeSection().querySelectorAll("details").forEach(d=>d.open=true);
+document.getElementById("closeAll").onclick = ()=> activeSection().querySelectorAll("details").forEach(d=>d.open=false);
+document.getElementById("clearMine").onclick = ()=> activeSection().querySelectorAll("textarea").forEach(t=>{ t.value=""; try{ ls && ls.removeItem("eo-"+t.id); }catch(e){} });
+</script>
+</body>
+</html>
