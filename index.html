@@ -87,6 +87,24 @@ details[open] summary::before{content:"−"}
 .fb li{margin-bottom:4px}
 .fb .ok{color:var(--ok);font-weight:600}
 .fb .fix{color:var(--pen);font-weight:600}
+.more{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);display:grid;gap:10px}
+.more h4{font:600 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin:0}
+.more p{margin:0}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.pair>div{background:var(--paper);border-radius:8px;padding:10px 12px;min-width:0;font-size:15px}
+.lbl{display:block;font:600 11px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.lbl.ok{color:var(--ok)}.lbl.pen{color:var(--pen)}
+mark.h{background:var(--blue-soft);color:inherit;padding:1px 3px;border-radius:4px}
+mark.h sup{font:500 10px/1 var(--f-mono);color:var(--blue);margin-left:2px}
+.how{display:grid;gap:14px}
+.how dl{display:grid;grid-template-columns:max-content 1fr;gap:8px 16px;margin:0;font-size:15px}
+.how dt{font:600 11px/1.9 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.how dt.err{color:var(--pen)}
+.how dd{margin:0;min-width:0}
+.sig td:first-child{white-space:normal}
+ol.steps{margin:0;padding-left:22px;display:grid;gap:8px}
+ol.notes{margin:12px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
+@media (max-width:560px){.how dl{grid-template-columns:1fr;gap:2px}.how dt{margin-top:8px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 @media print{nav.tabs,.tools,textarea{display:none}section.view[hidden]{display:grid!important}details>*{display:block}}
 </style>
@@ -102,6 +120,7 @@ details[open] summary::before{content:"−"}
 
   <nav class="tabs" aria-label="Bölümler">
     <a href="#terimler" data-view="terimler">Terimler</a>
+    <a href="#bul" data-view="bul">Nasıl bulunur?</a>
     <a href="#haber" data-view="haber">Kağıt A · Haber</a>
     <a href="#retorik" data-view="retorik">Kağıt B · Retorik</a>
     <a href="#notlar" data-view="notlar">Kağıdındaki cevaplar</a>
@@ -138,6 +157,21 @@ details[open] summary::before{content:"−"}
         <tr><td>Örtük sonuç</td><td>Açıkça söylenmeyen ama cümlelerin sıralanışıyla okura düşündürülen sonuç</td><td></td></tr>
       </table></div>
       <p class="tip"><b>Çıkarma testi:</b> Bir cümleyi metinden çıkar. İddia aynı güçle duruyorsa o cümle argümanın parçası değildir.</p>
+      <div class="more">
+        <h4>Aynı konu, üç farklı yapı</h4>
+        <div class="pair">
+          <div><span class="lbl">Argüman</span>Sınava bir hafta kaldı ve konuların yarısı bitmedi; <b>bu yüzden</b> bu hafta sonu dışarı çıkmamalıyım.<br><small>Sonuç tartışmalı ("çıkmamalıyım"), gerekçelerle savunuluyor.</small></div>
+          <div><span class="lbl">Açıklama</span>Sınava çalışmadığım <b>için</b> düşük aldım.<br><small>Düşük aldığım zaten olgu; kimse ikna edilmiyor, yalnızca neden anlatılıyor.</small></div>
+          <div><span class="lbl">Bildirim</span>Sınav 20 Kasım'da, saat 10.00'da.<br><small>Ne gerekçe ne neden; yalnızca bilgi.</small></div>
+        </div>
+        <p class="tip"><b>Ayırt etme sorusu:</b> "çünkü / için" hem argümanda hem açıklamada çıkar. Sor: <i>Sonuç tartışmalı mı, yoksa zaten kabul edilmiş bir olgu mu?</i> Tartışmalıysa argüman, olguysa açıklama.</p>
+        <h4>Ana iddia ile örtük sonuç</h4>
+        <div class="pair">
+          <div><span class="lbl">Metin</span>Belediye merkezdeki otoparkları ücretli yaptı. Geçen ay merkezde trafik %20 azaldı.</div>
+          <div><span class="lbl ok">Ana iddia</span>Belediye merkezdeki otoparkları ücretli yaptı.</div>
+          <div><span class="lbl pen">Örtük sonuç</span>Ücretli otopark trafiği azalttı. Metin bunu <b>söylemiyor</b>; iki olguyu yan yana koyarak düşündürüyor.</div>
+        </div>
+      </div>
     </div>
 
     <div class="block">
@@ -157,6 +191,33 @@ details[open] summary::before{content:"−"}
           </ul></li>
       </ul>
       <p class="tip"><b>İpucu:</b> Tek sözcüğü parmakla gösterebiliyorsan SL, dizilişi değiştirince düzeliyorsa SD. Yananlam için sor: "Bu özelliği taşımayan bir X olabilir mi?" "Olamaz" ise birincil, "Olabilir ama tuhaf" ise ikincil.</p>
+      <div class="more">
+        <h4>SL mi, SD mi? Daha çok örnek</h4>
+        <div class="pair">
+          <div><span class="lbl">SL · sorun tek sözcükte</span>
+            "Bu <b>çay</b> çok güzel." → içecek / dere<br>
+            "<b>Gül</b> bahçede bekliyor." → çiçek / Gül adlı kişi<br>
+            "Hasan'ın <b>yazısı</b> güzel." → el yazısı / yazdığı metin</div>
+          <div><span class="lbl">SD · sorun dizilişte</span>
+            "Polis, hırsızı arabayla kovaladı." → araba polisin mi, hırsızın mı?<br>
+            "Kırmızı kazaklı kızın annesi geldi." → kazak kızda mı, annede mi?<br>
+            "Öğretmen, öğrenciye kızgın bakan müdürü gösterdi." → kim kızgın?</div>
+        </div>
+        <p class="tip"><b>Düzeltme testi:</b> "Polis, arabasıyla hırsızı kovaladı." Sözcükler aynı kaldı, sadece yerleri değişti ve anlam netleşti. Demek ki SD. SL'de ise sözcüğü değiştirmen gerekir: "Bu <i>dere</i> çok güzel."</p>
+        <h4>Bulanık mı, belirsiz mi?</h4>
+        <div class="pair">
+          <div><span class="lbl">B · iki ayrı kutu</span>"yüz" (sayı / surat), "yaz" (mevsim / yazmak), "dolu" (yağış / boş olmayan). Anlamlar arasında geçiş yok: ya biri ya öteki.</div>
+          <div><span class="lbl">Biz · tek anlam, bulanık sınır</span>"uzun boylu", "genç", "pahalı", "kalabalık", "erken". 1,80 uzun mu? 1,75? Çizgi nerede?</div>
+          <div><span class="lbl">İkisi de</span>"ağır kitap" → kilo olarak ağır / anlaşılması zor (B) ve ne kadar ağır? (Biz). "Yakın arkadaş", "sıcak ortam" da böyle.</div>
+        </div>
+        <p class="tip"><b>İki soru:</b> "Bunu iki ayrı sözlük maddesine bölebilir miyim?" Evet ise B. "Nerede başladığını söyleyebilir miyim?" Hayır ise Biz.</p>
+        <h4>Çelişki mi, sürpriz mi?</h4>
+        <div class="pair">
+          <div><span class="lbl pen">Çelişki · tanım bozuluyor</span>üç kenarlı bir kare · hiç evlenmemiş bir dul · hiç şarkı söylememiş bir şarkıcı. <i>Dikkat:</i> "sesi kısık bir şarkıcı" ise sürprizdir; şarkı söylemek tanımda var, güzel ses yok.</div>
+          <div><span class="lbl ok">Sürpriz · tipik özellik bozuluyor</span>kibar bir korsan · korkak bir itfaiyeci · evde hiç yemek yapmayan bir aşçı · uçamayan bir kuş</div>
+          <div><span class="lbl">Eğretileme · ikincil yananlamı ödünç alır</span>"O adam tam bir tilki." (kurnaz) · "Kalbi taş." (duygusuz) · "Sınav kâbustu." (korkunç). Tilkinin tanımı (memeli, dört ayaklı) değil, tipik özelliği aktarılıyor.</div>
+        </div>
+      </div>
     </div>
 
     <div class="block">
@@ -167,6 +228,31 @@ details[open] summary::before{content:"−"}
         <li><b>Örtük görelilik</b> <span class="code">ÖG</span> / eksik kıyas sınıfı: Karşılaştırma var ama neye göre olduğu yok. <span class="ex">"Kiramız düşük." Neye göre?</span> Cevapta kıyas sınıfını <b>adlandırman</b> gerekir: diğer yurtlara, geçen yıla, piyasaya…</li>
         <li><b>Niceleyici</b> <span class="code">NC</span>: <b>Güçlü genelleme</b> (<i>tüm, hiçbir, asla, her</i>) tek <b>karşı örnekle</b> çürür. <b>Zayıf genelleme</b> (<i>çoğu, genellikle, bazı</i>) tek örnekle çürümez. Niceleyici yoksa okur en güçlü okumayı ("hepsi") varsayar. Güçlü bir iddiayı savunulabilir hâle getirmek için onu zayıf genellemeye dönüştür.</li>
       </ul>
+      <div class="more">
+        <h4>Retorik soruyu çevirme alıştırması</h4>
+        <div class="pair">
+          <div><span class="lbl">Soru</span>"Kim sevmez ki tatili?"<br>"Ben sana söylemedim mi?"<br>"Bu fiyata başka nerede bulursun?"</div>
+          <div><span class="lbl ok">Bildirim</span>Herkes tatili sever.<br>Ben sana söyledim.<br>Bu fiyata başka yerde bulamazsın.</div>
+        </div>
+        <p class="tip"><b>Yöntem:</b> Sorunun beklediği cevabı bul ("Kimse!", "Söyledin elbette", "Hiçbir yerde"). O cevabı düz cümle yap. Sonra sor: Bu iddia için bir neden verildi mi?</p>
+        <h4>İroni mi, kasıt mı? Aynı cümle, iki bağlam</h4>
+        <div class="pair">
+          <div><span class="lbl">Sağanak yağmurda</span>"Ne güzel hava!" → <b>ironi</b>, tersini kastediyor.</div>
+          <div><span class="lbl">Güneşli bir günde</span>"Ne güzel hava!" → <b>kasıt</b>, söylediğini kastediyor.</div>
+        </div>
+        <h4>Eksik kıyas sınıfı: "neye göre?"</h4>
+        <div class="pair">
+          <div><span class="lbl">"Vergiler yüksek."</span>Geçen yıla göre mi? Diğer ülkelere göre mi? Gelire göre mi?</div>
+          <div><span class="lbl">"Yeni model %30 daha az yakıyor."</span>Hangi modele göre? Eski modele mi, rakibe mi? Hangi koşulda?</div>
+          <div><span class="lbl">"Bu yöntem daha etkili."</span>Hangi yönteme göre? Kimin için, neyi ölçerek?</div>
+        </div>
+        <h4>Güçlü ve zayıf genelleme yan yana</h4>
+        <div class="pair">
+          <div><span class="lbl pen">Güçlü</span>"<b>Bütün</b> sınavlar zordur." → tek kolay sınav yeter, çürür.</div>
+          <div><span class="lbl ok">Zayıf</span>"Sınavların <b>çoğu</b> zordur." → birkaç kolay sınav çürütmez.</div>
+          <div><span class="lbl">Niceleyicisiz</span>"Gençler kitap okumaz." → okur "hiçbir genç" diye anlar; kitap okuyan bir genç çürütür.</div>
+        </div>
+      </div>
     </div>
 
     <div class="block">
@@ -176,6 +262,21 @@ details[open] summary::before{content:"−"}
         <li><b>Retorik kuvvet</b> <span class="code">RT</span>: Önermeye bir şey eklemeyen "vitrin süsü". <span class="ex">"%20 zam" ile "öğrencilerin sırtına yük" aynı önerme; ikincisi duygu ekliyor.</span></li>
         <li><b>Sezdirim</b> <span class="code">SZ</span>: Söylenmeyen ama makul dinleyicinin anlayacağı şey. <span class="ex">Referans mektubunda yalnızca "kıyafeti düzgündü" yazıyorsa: söylenecek başka iyi şey yok. "Bazı öğrenciler geçti" → hepsi geçmedi.</span></li>
       </ul>
+      <div class="more">
+        <h4>Retorik kuvvet: süsü çıkar, önerme aynı mı?</h4>
+        <div class="pair">
+          <div><span class="lbl">Düz</span>Belediye su fiyatını %10 artırdı.</div>
+          <div><span class="lbl pen">Süslü</span>Belediye bir kez daha vatandaşın suyuna el attı.</div>
+          <div><span class="lbl">Sonuç</span>Aynı olgu. İkincisi "el attı" ve "bir kez daha" ile öfke ekliyor; yeni bilgi eklemiyor.</div>
+        </div>
+        <h4>Sezdirim: "Neden daha fazlasını söylemedi?"</h4>
+        <div class="pair">
+          <div><span class="lbl">"Kahve fena değildi."</span>Sezdirilen: çok iyi de değildi.</div>
+          <div><span class="lbl">"Toplantıya Ahmet <b>de</b> geldi."</span>Sezdirilen: başkaları da geldi, belki Ahmet beklenmiyordu.</div>
+          <div><span class="lbl">"Kaptan bugün ayıktı."</span>Doğru bir cümle, ama sezdirilen: kaptan genelde ayık değil.</div>
+        </div>
+        <p class="tip"><b>Sezdirim sorusu:</b> Makul bir dinleyici bu cümleden, söylenenden <i>fazla</i> olarak ne çıkarır? O fazlalık sezdirimdir.</p>
+      </div>
     </div>
 
     <div class="block">
@@ -196,6 +297,31 @@ details[open] summary::before{content:"−"}
         <tr><td>Moda sözcük / jargon</td><td>Etkileyici ama içi boş: <i>konsept, optimizasyon, sinerji</i></td></tr>
         <tr><td>Çarpıtma (spin) / örtmece</td><td>Kötü haberi yumuşak sözcükle sunmak: <i>zam → "güncelleme"</i>, <i>işten çıkarma → "yollarımızı ayırdık"</i></td></tr>
       </table></div>
+      <div class="more">
+        <h4>Kurallı alıntı mı, korkutucu tırnak mı?</h4>
+        <div class="pair">
+          <div><span class="lbl ok">Kurallı alıntı</span>Bakan, "Bu yıl zam yok" dedi.<br><small>Kimin sözü belli, sözcükler aynen aktarılıyor.</small></div>
+          <div><span class="lbl pen">Korkutucu tırnak</span>Bu "uzman" bize ne öğretecek?<br><small>Kimse ona "uzman" dememiş; yazar sözcüğü alaya alıyor.</small></div>
+        </div>
+        <p class="tip"><b>"Sözde" testi:</b> Tırnağı sil, yerine "sözde" ya da "güya" koy. Anlam değişmiyorsa korkutucu tırnaktır: "Bu <i>sözde</i> uzman…". Tırnağın hemen önünde ya da arkasında bir konuşan (dedi, nitelendirdi, açıkladı) varsa kurallı alıntıdır.</p>
+        <h4>Tuzak mı, safsata mı?</h4>
+        <div class="pair">
+          <div><span class="lbl">Retorik tuzak</span>"Herkes bu telefonu alıyor!"<br><small>Gerekçe yok, sonuç yok; sadece etki.</small></div>
+          <div><span class="lbl">Safsata</span>"Herkes bu telefonu aldığına göre en iyi telefon budur."<br><small>Öncül ("herkes alıyor") ve sonuç ("en iyisi") var, ama bağ kötü.</small></div>
+        </div>
+        <h4>Katalogdan birer örnek daha</h4>
+        <div class="tbl"><table>
+          <tr><th>Tuzak</th><th>Örnek</th></tr>
+          <tr><td>Yeniliğe başvuru</td><td class="ex">"Hâlâ kâğıt defter mi kullanıyorsun? 2026'dayız!"</td></tr>
+          <tr><td>Popülerliğe başvuru</td><td class="ex">"Türkiye'nin 1 numaralı kahvesi."</td></tr>
+          <tr><td>Merhamete başvuru</td><td class="ex">"Hocam, notumu yükseltmezseniz annem çok üzülecek."</td></tr>
+          <tr><td>Korkuya başvuru</td><td class="ex">"Bu antivirüsü kurmazsan fotoğrafların çalınabilir."</td></tr>
+          <tr><td>Alaya başvuru</td><td class="ex">"Yapay zekâya güvenmeyenler, herhalde hâlâ faksla mesaj atıyordur."</td></tr>
+          <tr><td>Yönlendirici soru</td><td class="ex">"Bu harika kampanyadan ne zaman yararlanmak istersiniz?"</td></tr>
+          <tr><td>Duman perdesi</td><td class="ex">"Fiyatlar neden arttı?" — "Asıl konuşmamız gereken, rakiplerin kalitesi."</td></tr>
+          <tr><td>Örtmece / spin</td><td class="ex">"Negatif büyüme" (= küçülme), "fiyat ayarlaması" (= zam)</td></tr>
+        </table></div>
+      </div>
     </div>
 
     <div class="block">
@@ -206,6 +332,25 @@ details[open] summary::before{content:"−"}
         <li><b>Değerlendirme katan sözcük</b>: "başardı", "uzun süredir beklenen", "net bir çoğunluk"</li>
         <li><b>Doğrulanabilir bilgi</b>: Tarih, karar, oylama gibi kontrol edilebilir olgular. Yorum ve nitelemeler bunun dışında kalır.</li>
       </ul>
+      <div class="more">
+        <h4>Rakam tuzağı: aynı "3 puan", çok farklı gerçek</h4>
+        <div class="pair">
+          <div><span class="lbl">%30 → %27</span>3 puan düşüş = <b>%10'luk</b> azalma</div>
+          <div><span class="lbl">%6 → %3</span>3 puan düşüş = <b>%50'lik</b> azalma</div>
+          <div><span class="lbl">Hesap</span>Yüzde değişim = fark ÷ başlangıç. (27−30) ÷ 30 = −0,10. Başlangıç verilmezse büyüklük bilinemez.</div>
+        </div>
+        <p class="tip"><b>Yazar hangisini seçer?</b> İşsizlik %10'dan %8'e indiyse "2 puan düştü" küçük, "%20 azaldı" büyük duyulur. Olgu aynı; yazar etkiyi seçiyor.</p>
+        <h4>Kaynak sorgulama</h4>
+        <div class="pair">
+          <div><span class="lbl pen">Belirsiz</span>"Uzmanlar…" · "Araştırmalar gösteriyor ki…" · "Kulislerde…" · "Bir yetkili…"</div>
+          <div><span class="lbl">Sorulacak</span>Hangi uzman? Hangi araştırma, kaç kişiyle? Adı neden verilmiyor? Bu kişinin çıkarı var mı?</div>
+        </div>
+        <h4>Olgu mu, yorum mu?</h4>
+        <div class="pair">
+          <div><span class="lbl ok">Doğrulanabilir</span>"Karar mecliste 25'e karşı 12 oyla kabul edildi." · "Muhalefet kararı eleştirdi." (Eleştirdiği doğrulanabilir.)</div>
+          <div><span class="lbl pen">Yorum / tahmin</span>"Uzun süredir beklenen düzenleme" · "Net bir çoğunluk" · "Diğer kentlerde de gündeme gelebilir."</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -226,6 +371,143 @@ details[open] summary::before{content:"−"}
     <h2>Kağıt B · Dil ve Retorik</h2>
     <p class="instr">Kodlar: SL (sözlüksel bulanıklık), SD (sözdizimsel bulanıklık), BLZ (belirsizlik), RS (retorik soru), ÖG (örtük görelilik), NC (niceleyici), SZ (sezdirim), RT (retorik tuzak / kuvvet). Birden fazla tuzak varsa hepsini yaz.</p>
     <div class="qs" id="qs-retorik" style="display:grid;gap:14px"></div>
+  </section>
+
+  <!-- NASIL BULUNUR -->
+  <section class="view" id="v-bul" data-view="bul" hidden>
+    <h2>Paragrafta nasıl bulunur?</h2>
+    <p class="instr">Sınav soruları hep aynı birkaç şeyi istiyor. Burada her soru tipi için paragrafta neye bakacağını, cevabı nasıl yazacağını ve en sık yapılan hatayı bulacaksın.</p>
+
+    <div class="block">
+      <h3>Paragrafı tarama sırası</h3>
+      <p class="guide">Kağıttaki yönerge "iki kez okuyun" diyor. İlk okumada ne anlatıldığını, ikincide nasıl anlatıldığını izle.</p>
+      <ol class="steps">
+        <li><b>Ne oldu?</b> Kim, ne yaptı, ne zaman? Tek cümleyle söyle. Bu senin ana iddian.</li>
+        <li><b>Her cümleye etiket koy:</b> olgu (kontrol edilebilir) mi, yorum mu, tahmin mi?</li>
+        <li><b>Kaynakları işaretle:</b> Bu cümleyi kim söylüyor? Adı var mı, yoksa "bir yetkili", "uzmanlar" mı?</li>
+        <li><b>Sayıları işaretle:</b> Hangi iki rakam arası? Puan mı, yüzde mi? Başlangıç değeri verilmiş mi?</li>
+        <li><b>Sıfat ve zarfların altını çiz:</b> "sınırlı, net, makul, uygun, küçük, büyük bölümü, uzun süredir beklenen". Her biri için "Neye göre? Ne kadar?" diye sor.</li>
+        <li><b>Fiillere bak:</b> "başardı", "el attı", "güncelledi", "yollarını ayırdı". Fiil bir değerlendirme ya da örtmece taşıyor mu?</li>
+        <li><b>Tırnakları işaretle:</b> Tırnağın yanında bir konuşan var mı? "Sözde" testini uygula.</li>
+        <li><b>Sıralamaya bak:</b> Ana olayla doğrudan ilgisi olmayan cümleler neden orada? Yan yana hangi sonucu fısıldıyorlar?</li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <h3>İşaret sözcükleri: görürsen şüphelen</h3>
+      <div class="tbl"><table class="sig">
+        <tr><th>Paragrafta bunu görürsen</th><th>Şüphelen</th><th>Kendine sor</th></tr>
+        <tr><td>çünkü, bu yüzden, dolayısıyla, demek ki, -dığına göre</td><td>Argüman (ya da açıklama)</td><td>Sonuç tartışmalı mı, zaten olgu mu?</td></tr>
+        <tr><td>daha, en, düşük, yüksek, uygun, makul, ucuz, hızlı</td><td><span class="code">ÖG</span> eksik kıyas sınıfı</td><td>Neye göre?</td></tr>
+        <tr><td>çoğu, büyük bölümü, herkes, hiç kimse, asla, her zaman</td><td><span class="code">NC</span> niceleyici</td><td>Veri var mı? Tek karşı örnek çürütür mü?</td></tr>
+        <tr><td>sınırlı, net, kısa, ciddi, önemli ölçüde</td><td><span class="code">BLZ</span> belirsizlik</td><td>Ne kadar? Çizgi nerede?</td></tr>
+        <tr><td>puan, %, kat, "X'e yükseldi"</td><td>Rakam tuzağı</td><td>Hangi iki rakam? Puan mı yüzde mi?</td></tr>
+        <tr><td>başardı, ne yazık ki, sonunda, uzun süredir beklenen</td><td>Değerlendirme katan sözcük</td><td>Bu yazarın yorumu mu, olgu mu?</td></tr>
+        <tr><td>bir yetkili, uzmanlar, kaynaklar, kulisler, araştırmalar</td><td>Belirsiz kaynak</td><td>Kim? Neden adı yok?</td></tr>
+        <tr><td>güncelleme, düzenleme, ayarlama, yollarımızı ayırdık, optimizasyon</td><td>Örtmece / spin</td><td>Düz Türkçesi ne? (zam, işten çıkarma)</td></tr>
+        <tr><td>"…" tırnak</td><td>Alıntı ya da korkutucu tırnak</td><td>Yanında bir konuşan var mı? "Sözde" koyunca anlam aynı mı?</td></tr>
+        <tr><td>Bilgi sorulmayan yerde soru işareti, "…ki?", "mı?"</td><td><span class="code">RS</span> retorik soru / yönlendirici soru</td><td>Beklenen cevap ne? Düz cümle hâli ne?</td></tr>
+        <tr><td>yeni, yepyeni, yeni nesil, hâlâ, eski usul</td><td>Yeniliğe başvuru</td><td>Yeni olması neden daha iyi olmasını gerektirsin?</td></tr>
+        <tr><td>en çok tercih edilen, milyonlar, 1 numara</td><td>Popülerliğe başvuru</td><td>Çok kişinin seçmesi neyi kanıtlar?</td></tr>
+        <tr><td>Yıldız (*), dipnot, küçük punto</td><td><span class="code">SZ</span> sezdirimden faydalanma</td><td>Büyük yazı ne izlenim veriyor, küçük yazı ne diyor?</td></tr>
+        <tr><td>de/da, bile, bugün, bu sefer, fena değil, bazı</td><td><span class="code">SZ</span> sezdirim</td><td>Söylenenden fazla ne anlaşılıyor?</td></tr>
+      </table></div>
+    </div>
+
+    <h2>Soru tipine göre</h2>
+    <div class="how">
+      <div class="block"><h3>"Ana iddia nedir? Tek bir basit önerme olarak yazın."</h3><dl>
+        <dt>Ne istiyor</dt><dd>Haberin olgusal çekirdeği: kim, ne yaptı. Tek cümle.</dd>
+        <dt>Nereye bak</dt><dd>Başlık ve ilk cümle. "Ne oldu?" sorusunun cevabı.</dd>
+        <dt>Nasıl yaz</dt><dd>Özne + yüklem, yorum sözcüğü olmadan. <i>"KARSU'nun su tarifesindeki düzenleme 1 Ocak'ta yürürlüğe girdi."</i></dd>
+        <dt class="err">Sık hata</dt><dd>Örtük sonucu yazmak ("gerekli bir düzenleme") ya da bir tarafın sözünü benimsemek ("suya zam"). Metin kendi sesiyle "zam" demiyorsa sen de deme.</dd>
+      </dl></div>
+
+      <div class="block"><h3>"Argüman var mı? (argüman / açıklama / bildirim)"</h3><dl>
+        <dt>Ne istiyor</dt><dd>Metnin türü ve gerekçesi.</dd>
+        <dt>Nereye bak</dt><dd>Öncül-sonuç göstergeleri: çünkü, bu yüzden, dolayısıyla, demek ki.</dd>
+        <dt>Nasıl yaz</dt><dd><i>"Bildirim. Öncül-sonuç göstergesi yok, kimse bir sonuca ikna edilmeye çalışılmıyor. Ama (4), (6), (8) yan yana dizilerek örtük bir sonuç düşündürülüyor."</i> Çıkarma testiyle destekle.</dd>
+        <dt class="err">Sık hata</dt><dd>"için" görünce argüman sanmak. "Kuraklık yüzünden su kesildi" bir açıklamadır.</dd>
+      </dl></div>
+
+      <div class="block"><h3>"Eksik kıyas sınıfı ne? Neye göre?"</h3><dl>
+        <dt>Ne istiyor</dt><dd>Karşılaştırmanın söylenmeyen ikinci tarafı.</dd>
+        <dt>Nereye bak</dt><dd>Derece ve kıyas sözcükleri: sınırlı, net, düşük, uygun, makul, daha.</dd>
+        <dt>Nasıl yaz</dt><dd>En az iki aday kıyas sınıfı yaz ve metnin vermediğini söyle: <i>"Sınırlı: enflasyona göre mi, geçen yılki zamma göre mi? Metin söylemiyor."</i></dd>
+        <dt class="err">Sık hata</dt><dd>Kavramın adını yazıp ("örtük görelilik") sınıfı yazmamak. Ya da tek bir sınıfı kesinmiş gibi uydurmak ("yerel işletmelere göre").</dd>
+      </dl></div>
+
+      <div class="block"><h3>"Metin bu niceleyiciyi destekleyen bir veri sunuyor mu?"</h3><dl>
+        <dt>Ne istiyor</dt><dd>"Büyük bölümü", "çoğu" gibi iddianın arkasında sayı var mı?</dd>
+        <dt>Nereye bak</dt><dd>Aynı cümlede ya da sonrasında oran, anket, sayı.</dd>
+        <dt>Nasıl yaz</dt><dd><i>"Hayır. Kaç abonenin etkileneceğine dair oran ya da sayı verilmemiş; iddia yalnızca belediyenin beyanına dayanıyor."</i></dd>
+      </dl></div>
+
+      <div class="block"><h3>"Hangi iki rakam arası? Hangi tuzak? Hangi sözcük değerlendirme katıyor?"</h3><dl>
+        <dt>Ne istiyor</dt><dd>Üç ayrı cevap. Üçünü de ayrı ayrı yaz.</dd>
+        <dt>Nasıl yaz</dt><dd><i>"1) Başlangıç verilmemiş: %30→27 mi (%10 azalma), %6→3 mü (%50 azalma)? 2) Tuzak: puan ile yüzde karışıklığı. 3) 'Başardı' sözcüğü değerlendirme katıyor."</i></dd>
+        <dt class="err">Sık hata</dt><dd>"Az geldi" gibi kişisel yorum yazmak. Soru senin görüşünü değil, metnin eksiğini istiyor.</dd>
+      </dl></div>
+
+      <div class="block"><h3>"Tırnaklar kurallı alıntı mı, korkutucu tırnak mı?"</h3><dl>
+        <dt>Nereye bak</dt><dd>Tırnağın hemen yanı: "dedi", "olarak nitelendirdiği", "açıkladı" gibi bir konuşan var mı?</dd>
+        <dt>Nasıl yaz</dt><dd><i>"Kurallı alıntı, çünkü sözcüklerin kime ait olduğu belli (muhalefet) ve aynen aktarılıyor."</i></dd>
+        <dt class="err">Sık hata</dt><dd>Duyguya göre karar vermek ("duygu hissetmedim"). Ölçüt duygu değil, kaynağın belli olup olmaması.</dd>
+      </dl></div>
+
+      <div class="block"><h3>"Hangi örtük sonucu destekliyormuş gibi diziliyor?"</h3><dl>
+        <dt>Nereye bak</dt><dd>Ana olayla doğrudan ilgisi olmayan cümleler: geçmiş başarılar, kriz haberleri, "beklenen ihtiyaç".</dd>
+        <dt>Nasıl yaz</dt><dd><i>"Birlikte 'Düzenleme gerekli ve haklı, kurum da işini iyi yapıyor' sonucunu düşündürüyorlar; metin bunu açıkça söylemiyor."</i></dd>
+      </dl></div>
+
+      <div class="block"><h3>"Yalnızca doğrulanabilir bilgilerle üç cümlede yeniden yazın."</h3><dl>
+        <dt>Yöntem</dt><dd>Her cümleyi süz. <b>Kalanlar:</b> tarih, karar, oylama, ölçülebilir değişiklik, "X şunu söyledi". <b>Atılanlar:</b> sıfatlar (sınırlı, net), "başardı", anonim kaynaklar, tahminler ("gündeme gelebilir").</dd>
+        <dt>Örnek</dt><dd><i>"KARSU'nun su tarifesindeki düzenleme 1 Ocak'ta yürürlüğe girdi. Konut abonelerinde metreküp ücreti değiştirildi, indirimli kademenin üst sınırı genişletildi. Düzenleme belediye meclisinde kabul edildi; muhalefet bunu 'su zammı' olarak nitelendirdi."</i></dd>
+        <dt class="err">Sık hata</dt><dd>Boş bırakmak. Üç cümle kısa olabilir; önemli olan her birinin kontrol edilebilir olması.</dd>
+      </dl></div>
+
+      <div class="block"><h3>Bulanıklık, yananlam, retorik soru, sezdirim</h3><dl>
+        <dt>SL / SD</dt><dd>Belirsiz sözcüğü parmakla gösterebiliyorsan SL; iki anlamını yaz. Göstermiyorsan, sözcükleri yer değiştirip dene; anlam netleşiyorsa SD.</dd>
+        <dt>Çelişki / sürpriz</dt><dd>"Bu özelliği taşımayan bir X olabilir mi?" Olamaz → çelişki. Olabilir ama tuhaf → sürpriz.</dd>
+        <dt>Retorik soru</dt><dd>Beklenen cevabı bul ("Hayır, elbette"), düz cümle yap, sonra "neden verildi mi?" diye sor.</dd>
+        <dt>Sezdirim</dt><dd>"Neden daha fazlasını söylemedi?" Referans mektubunda sadece kıyafet övülüyorsa, başka övülecek şey yoktur.</dd>
+      </dl></div>
+
+      <div class="block"><h3>Tuzak avı ve final vaka</h3><dl>
+        <dt>Yöntem</dt><dd>Paragrafı ifade ifade böl. Her ifade için: 1) süslü sözcüğü çıkar, geriye ne iddia kalıyor? 2) İşaret sözcükleri tablosunda karşılığı var mı? 3) Kodunu yaz.</dd>
+        <dt>Nasıl yaz</dt><dd>Alıntı + kod + kısa gerekçe: <i>"'Neden hâlâ… mahkûm olasınız ki?' → RS + yeniliğe başvuru: soru değil, 'eski yöntem kötü' iddiası."</i></dd>
+        <dt class="err">Sık hata</dt><dd>Her ifadeye tek tuzak yazmak. Çoğu ifadede iki-üç tuzak birlikte bulunur.</dd>
+      </dl></div>
+    </div>
+
+    <h2>Çözümlü örnek</h2>
+    <div class="passage">
+      <h3>Kahve Durağı'nda yeni menü</h3>
+      <p><span class="n">(1)</span>Şehrimizin <mark class="h">en sevilen<sup>a</sup></mark> kafesi Kahve Durağı, menüsünü <mark class="h">yeniden düzenledi<sup>b</sup></mark>. <span class="n">(2)</span>Fiyatlarda <mark class="h">küçük bir güncellemeye<sup>c</sup></mark> gidilirken öğrenci indirimi korunuyor. <span class="n">(3)</span>İşletme sahibi Mert Yılmaz, "<mark class="h">Müşterilerimizin çoğu<sup>d</sup></mark> bu değişikliği memnuniyetle karşıladı" dedi. <span class="n">(4)</span>Kafe, geçen ay müşteri sayısını <mark class="h">yüzde 12 artırmayı başardı<sup>e</sup></mark>. <span class="n">(5)</span>Değişime karşı çıkan bazı <mark class="h">"eleştirmenler"<sup>f</sup></mark> ise sosyal medyada sesini yükseltiyor. <span class="n">(6)</span><mark class="h">Uzmanlar<sup>g</sup></mark>, benzer kafelerin de yakında aynı yolu izleyeceğini <mark class="h">düşünüyor<sup>h</sup></mark>.</p>
+      <ol class="notes" type="a">
+        <li><b>Popülerliğe başvuru + ÖG:</b> Kim seviyor, hangi kafelere göre? Veri yok.</li>
+        <li><b>Örtmece:</b> "Yeniden düzenleme" gerçekte ne? (2) gösteriyor: fiyat değişikliği.</li>
+        <li><b>Örtmece + BLZ + ÖG:</b> "Güncelleme" = zam. "Küçük" ne kadar, neye göre?</li>
+        <li><b>NC, veri yok + taraflı kaynak:</b> Bunu söyleyen işletme sahibi. Tırnak <b>kurallı alıntı</b>: konuşan belli.</li>
+        <li><b>Rakam tuzağı + değerlendirme:</b> 100'den 112'ye mi, 1000'den 1120'ye mi? "Başardı" yorum katıyor. Ayrıca bu cümlenin fiyatla ilgisi yok: örtük sonuca hizmet ediyor.</li>
+        <li><b>Korkutucu tırnak + alay:</b> Kimse onlara "eleştirmen" dememiş. "Sözde eleştirmenler" diye okununca anlam aynı. "Değişime karşı çıkan" da yeniliğe başvuru.</li>
+        <li><b>Belirsiz kaynak:</b> Hangi uzmanlar?</li>
+        <li><b>Tahmin:</b> Doğrulanamaz; olgu gibi sunulmuş.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>Paragrafın özeti</h3>
+      <div class="pair">
+        <div><span class="lbl ok">Ana iddia</span>Kahve Durağı menüsünü ve fiyatlarını değiştirdi.</div>
+        <div><span class="lbl">Tür</span>Bildirim. Öncül-sonuç göstergesi yok.</div>
+        <div><span class="lbl pen">Örtük sonuç</span>(3), (4), (5) birlikte: "Zam haklı, müşteriler memnun, karşı çıkanlar azınlık."</div>
+        <div><span class="lbl ok">Doğrulanabilir hâli</span>Kahve Durağı menüsünü ve fiyatlarını değiştirdi. Öğrenci indirimi sürüyor. İşletme sahibi Mert Yılmaz, müşterilerin çoğunun değişikliği memnuniyetle karşıladığını söyledi.</div>
+      </div>
+    </div>
+
+    <h2>Hızlı kontrol</h2>
+    <p class="instr">Her birini önce kendin çöz, sonra cevaba bak.</p>
+    <div class="qs" id="qs-bul" style="display:grid;gap:14px"></div>
   </section>
 
   <!-- NOTLAR -->
@@ -313,6 +595,29 @@ const R = [
   a:"<ul><li>\"En çok konuşulan\": popülerlik, ÖG/BLZ (kim konuşuyor, neye göre?)</li><li>\"Neden hâlâ… ki?\": RS + yönlendirici soru + yeniliğe başvuru</li><li>\"Yeni nesil 'akıllı antrenman'\": moda sözcük / jargon (RT)</li><li>\"%90 fark gördü*\": SZ. Dipnota göre yalnızca 20 kişi; \"fark\" da belirsiz.</li><li>\"Uygun\": ÖG. Diğer salonlara mı, piyasaya mı göre? Söylenmiyor.</li><li>'gereksiz' 'uzman': korkutucu tırnak + alay</li><li>\"Belki bir gün öğrenir\": alaya başvuru</li></ul>"}
 ];
 
+const Q = [
+ {q:"\"Toplantı uzun sürdü, bu yüzden servisi kaçırdım.\" Argüman mı, açıklama mı?",
+  a:"<b>Açıklama.</b> Servisin kaçırıldığı zaten olgu; kimse ikna edilmiyor, yalnızca nedeni anlatılıyor. \"Bu yüzden\" göstergesi seni yanıltmasın."},
+ {q:"\"Bu marka %50 daha az şeker içerir.\" Ne eksik?",
+  a:"<b>Eksik kıyas sınıfı (ÖG).</b> Neye göre %50 daha az? Markanın eski ürününe mi, rakibe mi, ortalamaya mı?"},
+ {q:"\"Yeni müdür çok 'deneyimli' biri, hepimiz göreceğiz.\" Tırnak ne işe yarıyor?",
+  a:"<b>Korkutucu tırnak + alay.</b> Kimse \"deneyimli\" demedi; \"sözde deneyimli\" diye okunuyor. \"Hepimiz göreceğiz\" de olumsuz bir sezdirim taşıyor."},
+ {q:"\"Kırmızı kazaklı kızın annesi geldi.\" SL mi, SD mi?",
+  a:"<b>SD.</b> Kazak kızda mı annede mi? Sözcükler net, sorun dizilişte."},
+ {q:"\"Kim istemez ki daha az vergi ödemeyi?\" Bildirme cümlesine çevir.",
+  a:"\"Herkes daha az vergi ödemek ister.\" Sonra sor: Bu, vergilerin düşürülmesi gerektiğine bir gerekçe mi? Hayır, sadece bir istek."},
+ {q:"Öğretmen, ödevin içeriği sorulunca: \"Yazım kuralları çok iyiydi.\" Ne sezdiriliyor?",
+  a:"<b>Sezdirim:</b> İçerik iyi değildi. Sorulan şeye cevap vermeyip başka bir şeyi övmek, sorulan konuda iyi bir şey olmadığını düşündürür."},
+ {q:"\"Abonelik oranı %20'den %25'e çıktı.\" Kaç puan, yüzde kaç artış?",
+  a:"<b>5 puan</b> artış. Yüzde olarak: 5 ÷ 20 = <b>%25</b> artış. Yazar hangisini seçerse haber o kadar büyük ya da küçük duyulur."},
+ {q:"\"Şirket, yeniden yapılanma sürecinde 40 çalışanıyla yollarını ayırdı.\" Hangi tuzak? Düz hâli ne?",
+  a:"<b>Örtmece / spin</b> (+ \"yeniden yapılanma\" moda sözcüğü). Düz hâli: \"Şirket 40 çalışanı işten çıkardı.\""},
+ {q:"\"Hiç ameliyat yapmamış bir cerrah\" ile \"elleri titreyen bir cerrah\": hangisi çelişki, hangisi sürpriz?",
+  a:"Ameliyat yapmak cerrahın tanımında var: ilki <b>çelişki</b>. Sabit el tipik ama tanımsal değil: ikincisi <b>sürpriz</b>."},
+ {q:"\"Uzmanlar, yeni sistemin trafiği büyük ölçüde rahatlatacağını belirtiyor.\" Kaç sorun görüyorsun?",
+  a:"<ul><li>\"Uzmanlar\": belirsiz kaynak.</li><li>\"Büyük ölçüde\": belirsizlik (BLZ), ne kadar?</li><li>\"Rahatlatacak\": tahmin, doğrulanamaz.</li></ul>"}
+];
+
 function store(){ try{ return window.localStorage; }catch(e){ return null; } }
 function render(list, el, prefix, isTask){
   el.innerHTML = list.map((it,i)=>{
@@ -325,6 +630,7 @@ function render(list, el, prefix, isTask){
 }
 render(H, document.getElementById("qs-haber"), "a", false);
 render(R, document.getElementById("qs-retorik"), "b", true);
+render(Q, document.getElementById("qs-bul"), "c", false);
 
 const ls = store();
 document.querySelectorAll("textarea").forEach(t=>{
@@ -332,13 +638,13 @@ document.querySelectorAll("textarea").forEach(t=>{
   t.addEventListener("input", ()=>{ try{ ls && ls.setItem("eo-"+t.id, t.value); }catch(e){} });
 });
 
-const views = ["terimler","haber","retorik","notlar"];
+const views = ["terimler","bul","haber","retorik","notlar"];
 function current(){ const h = location.hash.slice(1); return views.includes(h) ? h : "terimler"; }
 function show(){
   const v = current();
   document.querySelectorAll("section.view").forEach(s=> s.hidden = s.dataset.view !== v);
   document.querySelectorAll("nav.tabs a").forEach(a=> a.setAttribute("aria-current", a.dataset.view===v ? "true":"false"));
-  const hasAns = v==="haber" || v==="retorik";
+  const hasAns = v==="haber" || v==="retorik" || v==="bul";
   document.querySelector(".tools").hidden = !hasAns;
 }
 window.addEventListener("hashchange", ()=>{ show(); window.scrollTo(0,0); });
