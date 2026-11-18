@@ -104,6 +104,11 @@ mark.h sup{font:500 10px/1 var(--f-mono);color:var(--blue);margin-left:2px}
 .sig td:first-child{white-space:normal}
 ol.steps{margin:0;padding-left:22px;display:grid;gap:8px}
 ol.notes{margin:12px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
+.src{font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.pblock{display:grid;gap:14px}
+.cmp td:first-child{white-space:normal}
+section.view>*,.how>*,.pblock>*,#passages>*{min-width:0}
+@media (max-width:640px){nav.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}nav.tabs a{flex:none}}
 @media (max-width:560px){.how dl{grid-template-columns:1fr;gap:2px}.how dt{margin-top:8px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 @media print{nav.tabs,.tools,textarea{display:none}section.view[hidden]{display:grid!important}details>*{display:block}}
@@ -123,6 +128,8 @@ ol.notes{margin:12px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
     <a href="#bul" data-view="bul">Nasıl bulunur?</a>
     <a href="#haber" data-view="haber">Kağıt A · Haber</a>
     <a href="#retorik" data-view="retorik">Kağıt B · Retorik</a>
+    <a href="#ekhaber" data-view="ekhaber">Ek paragraflar</a>
+    <a href="#ekretorik" data-view="ekretorik">Ek retorik</a>
     <a href="#notlar" data-view="notlar">Kağıdındaki cevaplar</a>
   </nav>
   <div class="tools">
@@ -510,6 +517,32 @@ ol.notes{margin:12px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
     <div class="qs" id="qs-bul" style="display:grid;gap:14px"></div>
   </section>
 
+  <!-- EK PARAGRAFLAR -->
+  <section class="view" id="v-ekhaber" data-view="ekhaber" hidden>
+    <h2>Ek paragraflar</h2>
+    <p class="instr">Kağıt A'daki gibi: paragrafı iki kez oku, cümle numaralarıyla yanıtla. Üç paragrafta aynı soru tipleri farklı cevaplar veriyor. Sonunda karşılaştırma tablosu var.</p>
+    <div id="passages" style="display:grid;gap:28px"></div>
+    <details class="block">
+      <summary>Üç paragrafı karşılaştır</summary>
+      <div class="tbl" style="margin-top:12px"><table class="cmp">
+        <tr><th>Soru tipi</th><th>Paragraf 1 · Bisiklet şeridi</th><th>Paragraf 2 · Kiralar</th><th>Paragraf 3 · Veriyol</th></tr>
+        <tr><td>Metnin türü</td><td><b>Argüman</b> ("Bu nedenle", sonuç 4)</td><td><b>Bildirim</b>, içinde bir <b>açıklama</b> (3)</td><td><b>Bildirim</b></td></tr>
+        <tr><td>Ana iddia</td><td>Argümanın sonucu (bir öneri)</td><td>Rapora dayanan olgu</td><td>Örtmeceden arındırılmış olgu</td></tr>
+        <tr><td>Tırnaklar</td><td>(5) korkutucu · (6) kurallı</td><td>(4) ve (5) kurallı</td><td>(1) kurallı · (2) tırnaksız örtmece</td></tr>
+        <tr><td>Rakam tuzağı</td><td>"İki kat", başlangıç yok</td><td>15 puan ≠ %15</td><td>%8 hisse artışı karar için kanıt değil</td></tr>
+        <tr><td>Kıyas sınıfı</td><td>"En akıllıca": sınıf yok</td><td>"Çevre illere göre": sınıf var, veri yok</td><td>"Yasal haklarının üzerinde": ne kadar?</td></tr>
+        <tr><td>Örtük sonuç</td><td>Gerek yok, sonuç açıkça söylenmiş</td><td>Sorun öğrenciler, belediye çözüyor</td><td>Karar doğru ve olağan</td></tr>
+      </table></div>
+    </details>
+  </section>
+
+  <!-- EK RETORİK -->
+  <section class="view" id="v-ekretorik" data-view="ekretorik" hidden>
+    <h2>Ek retorik kağıdı</h2>
+    <p class="instr">Kağıt B'nin ikinci hâli. Kodlar: SL, SD, BLZ, RS, ÖG, NC, SZ, RT. Birden fazla tuzak varsa hepsini yaz.</p>
+    <div class="qs" id="qs-ekretorik" style="display:grid;gap:14px"></div>
+  </section>
+
   <!-- NOTLAR -->
   <section class="view" id="v-notlar" data-view="notlar" hidden>
     <h2>Kağıdındaki cevaplara notlar</h2>
@@ -618,6 +651,119 @@ const Q = [
   a:"<ul><li>\"Uzmanlar\": belirsiz kaynak.</li><li>\"Büyük ölçüde\": belirsizlik (BLZ), ne kadar?</li><li>\"Rahatlatacak\": tahmin, doğrulanamaz.</li></ul>"}
 ];
 
+const P = [
+{title:`Kampüse bisiklet şeridi`, src:`Üniversite gazetesi · görüş yazısı`, s:[
+ `Üniversite yönetimi, kampüs içindeki ana yola bisiklet şeridi yapılmasını önerdi.`,
+ `Kampüse her gün yaklaşık 4.000 öğrenci araçla geliyor ve sabah saatlerinde ana yolda trafik kilitleniyor.`,
+ `Geçen yıl kampüste bisiklet kullanan öğrenci sayısı iki katına çıktı.`,
+ `Bu nedenle bisiklet şeridi, hem trafiği azaltmanın hem de öğrencilerin güvenliğini sağlamanın en akıllıca yolu.`,
+ `Projeye karşı çıkan bazı "çevreciler" ise ağaçların kesileceğini öne sürüyor.`,
+ `Rektörlük, projenin maliyetinin "makul" olduğunu açıkladı.`,
+ `Herkes bilir ki modern üniversitelerin hepsinde bisiklet yolu vardır.`,
+ `Kim, kampüsünün geride kalmasını ister ki?`],
+ qs:[
+ {q:`Metnin ana iddiası nedir? Tek bir basit önerme olarak yaz.`,
+  a:`<p><b>"Kampüsün ana yoluna bisiklet şeridi yapılmalı."</b> (4)</p><p>Kağıt A'dan farkı: Bu bir haber değil, görüş yazısı. Ana iddia bir olgu değil, argümanın <b>sonucu</b>. (1)'deki öneri yalnızca konuyu tanıtıyor.</p>`},
+ {q:`Metinde kurulmuş bir argüman var mı? <i>(argüman / açıklama / bildirim)</i> Gerekçelendir.`,
+  a:`<p><b>Evet, argüman.</b> Gösterge: (4)'teki "Bu nedenle".</p><ul><li>Öncül 1: (2) Araçla gelen çok öğrenci var, sabah trafik kilitleniyor.</li><li>Öncül 2: (3) Bisiklet kullanan öğrenci sayısı arttı.</li><li>Sonuç: (4) Bisiklet şeridi en akıllıca yol.</li></ul><p>(7) ve (8) de sonucu destekler gibi yapıyor ama ikisi de zayıf (bkz. soru 6 ve 7).</p>`},
+ {q:`(3) "iki katına çıktı": hangi iki rakam arası? (2)'deki 4.000 sayısının yanında bu bilgi ne kadar güçlü?`,
+  a:`<p>Başlangıç verilmemiş: 30'dan 60'a mı, 1.000'den 2.000'e mi? "İki kat" etkileyici duyuluyor ama küçük sayılar da olabilir.</p><p>30'dan 60'a çıktıysa, 4.000 araçlık trafiğin yanında etkisi çok küçük. Öncül, sonucu ne kadar desteklediği bilinmeden sunulmuş.</p>`},
+ {q:`(4) "en akıllıca yol": eksik kıyas sınıfı ne?`,
+  a:`<b>ÖG.</b> Hangi seçeneklere göre "en"? Ring servisi, otopark ücreti, ders saatlerini kaydırmak gibi alternatiflerin hiçbiri anılmamış. "En" diyebilmek için diğer seçeneklerle karşılaştırma gerekir.`},
+ {q:`(5) ve (6)'daki tırnaklar kurallı alıntı mı, korkutucu tırnak mı? İkisi aynı mı?`,
+  a:`<ul><li>(5) <b>"çevreciler": korkutucu tırnak.</b> Kimse bu kişileri böyle adlandırmamış; "sözde çevreciler" diye okununca anlam aynı. Yazar alay ediyor.</li><li>(6) <b>"makul": kurallı alıntı.</b> Konuşan belli (rektörlük), sözcük aynen aktarılıyor. Ama sözcüğün kendisi belirsiz (BLZ) ve ÖG: neye göre makul?</li></ul><p>Aynı paragrafta iki tırnak, iki farklı cevap.</p>`},
+ {q:`(7) hangi niceleyiciyi kullanıyor? Bir karşı örnek ve zayıf hâlini yaz. "Herkes bilir ki" ne işe yarıyor?`,
+  a:`<p><b>"hepsinde": güçlü genelleme.</b> Bisiklet yolu olmayan tek bir modern üniversite yeter, iddia çürür. Zayıf hâli: "Birçok üniversitede bisiklet yolu var."</p><p>"Herkes bilir ki" kanıtın yerine geçiyor (popülerliğe başvuru). Bu cümle öncül olarak kullanıldığı için burada bir <b>safsata</b> var: "Herkes yapıyor, öyleyse biz de yapmalıyız."</p>`},
+ {q:`(8)'i bildirme cümlesine çevir. Bu bir gerekçe mi?`,
+  a:`<p><b>"Kimse kampüsünün geride kalmasını istemez."</b></p><p>Gerekçe değil, retorik soru (RS). Ayrıca yeniliğe ve korkuya başvuru: "geride kalma" korkusu üzerinden ikna etmeye çalışıyor.</p>`},
+ {q:`Çıkarma testini uygula: Hangi cümleler çıkarılınca argüman aynı güçle durur?`,
+  a:`<ul><li>(1) bağlam, (5) karşı tarafa alay, (6) maliyet beyanı: çıkarılınca argüman değişmez.</li><li>(7) ve (8) çıkarılınca argüman <b>zayıflamaz</b>, aksine tuzaklardan arınır.</li><li>Argümanın çekirdeği: (2) + (3) → (4).</li></ul>`}
+ ]},
+{title:`Kiralarda sert yükseliş`, src:`Yerel haber`, s:[
+ `Türkiye Emlak Platformu'nun ekim raporuna göre, şehirde ortalama kira geçen yılın aynı ayına göre yüzde 60 arttı.`,
+ `Aynı dönemde yıllık enflasyon yüzde 45 olarak açıklandı.`,
+ `Kiralardaki artışın temel nedeni, üniversitenin yeni kampüsüyle birlikte şehre gelen öğrenci sayısının artması.`,
+ `Ev sahipleri derneği başkanı, "Kiralar hâlâ çevre illere göre düşük" dedi.`,
+ `Öğrenci temsilcileri ise artışı "kabul edilemez" buluyor.`,
+ `Kentte yaşayanların büyük bir kısmı, gelirinin yarısından fazlasını kiraya ayırıyor.`,
+ `Belediye, yeni bir öğrenci yurdu için çalışma başlattığını duyurdu.`,
+ `Uzmanlara göre kiralar önümüzdeki yıl da yükselmeye devam edebilir.`],
+ qs:[
+ {q:`Haberin ana iddiası nedir? Tek bir basit önerme olarak yaz.`,
+  a:`<b>"Türkiye Emlak Platformu'nun raporuna göre şehirde ortalama kira bir yılda %60 arttı."</b> Kaynağı da yazmak iyi olur, çünkü rakam bir rapora dayanıyor.`},
+ {q:`Metinde kurulmuş bir argüman var mı? <i>(argüman / açıklama / bildirim)</i> Gerekçelendir.`,
+  a:`<p>Metnin geneli <b>bildirim</b>. Ama (3) bir <b>açıklama</b>: Kira artışı zaten olgu; cümle onun nedenini anlatıyor.</p><p>Dikkat: (3)'te kaynak yok. "Temel neden" kimin tespiti? Açıklama, haberin kendi sesiyle olgu gibi sunulmuş.</p>`},
+ {q:`(1) ve (2): Kira artışı enflasyondan kaç puan fazla? "Kiralar enflasyondan %15 fazla arttı" demek doğru mu?`,
+  a:`<p><b>15 puan</b> fazla (60 − 45).</p><p>"%15 fazla" demek yanlış: 60, 45'in yaklaşık 1,33 katı. Yani kira artışı enflasyondan yaklaşık <b>%33 daha hızlı</b>. Puan ile yüzde karıştırılırsa fark olduğundan küçük görünür.</p>`},
+ {q:`(4) "düşük": Bu sefer kıyas sınıfı verilmiş mi? Bu cümlenin başka sorunu ne?`,
+  a:`<p>Evet, <b>kıyas sınıfı verilmiş</b>: "çevre illere göre". Kağıt A'dan farklı bir durum.</p><p>Ama hangi iller, hangi veriyle? Rakam yok. Konuşan da ev sahipleri derneği, yani <b>çıkarı olan bir kaynak</b>. Tırnak kurallı alıntı.</p>`},
+ {q:`(5) "kabul edilemez": korkutucu tırnak mı?`,
+  a:`<b>Hayır, kurallı alıntı.</b> Konuşan belli (öğrenci temsilcileri), sözcük onların. Sözcük bir değer yargısı ama yargı haberin değil, temsilcilerin. "Sözde kabul edilemez" diye okununca anlam bozuluyor; demek ki korkutucu tırnak değil.`},
+ {q:`(6) "büyük bir kısmı": veri var mı? Cümlenin hangi kısmı kesin, hangisi değil?`,
+  a:`"Gelirinin yarısından fazlası" kesin bir ölçüt. Ama bunu yapanların "büyük bir kısmı" kaç kişi? Oran, anket ya da kaynak yok. <b>NC, veri yok.</b>`},
+ {q:`(3), (6) ve (7) birlikte hangi <b>örtük sonucu</b> düşündürüyor?`,
+  a:`"Kira sorununun kaynağı öğrenci akını; belediye de sorunu çözmek için harekete geçti." Metin bunu açıkça söylemiyor. (3)'ün kaynaksız olması bu örtük sonucu daha da şüpheli yapıyor.`},
+ {q:`(8)'de kaç sorun var?`,
+  a:`<ul><li>"Uzmanlara göre": belirsiz kaynak.</li><li>"devam edebilir": tahmin, doğrulanamaz.</li></ul>`},
+ {q:`Haberi yalnızca doğrulanabilir bilgilerle üç cümlede yeniden yaz.`,
+  a:`Türkiye Emlak Platformu'nun ekim raporuna göre şehirde ortalama kira bir yılda %60 arttı; aynı dönemde yıllık enflasyon %45 olarak açıklandı. Ev sahipleri derneği başkanı kiraların çevre illere göre düşük olduğunu söylerken, öğrenci temsilcileri artışı kabul edilemez buldu. Belediye, yeni bir öğrenci yurdu için çalışma başlattığını duyurdu.`}
+ ]},
+{title:`Veriyol'da yeniden yapılanma`, src:`Ekonomi haberi`, s:[
+ `Yazılım şirketi Veriyol, "verimlilik odaklı yeni bir yapılanma" sürecine girdiğini açıkladı.`,
+ `Şirket, bu süreçte 150 çalışanıyla yollarını ayırdı.`,
+ `Şirket sözcüsü, "Çalışanlarımızın çoğu kararı anlayışla karşıladı" dedi.`,
+ `Veriyol'un hisseleri açıklamanın ardından yüzde 8 değer kazandı.`,
+ `Şirketin kurucusu, geçen yıl da benzer bir dönemde "zor ama gerekli kararlar" aldıklarını hatırlattı.`,
+ `Sektördeki rakip firmaların birçoğu da son aylarda personel sayısını azalttı.`,
+ `Sendika temsilcisi ise şirketin geçen çeyrekte rekor kâr açıkladığını hatırlattı.`,
+ `Çalışanların bir kısmına yasal haklarının üzerinde tazminat ödendi.`],
+ qs:[
+ {q:`Haberin ana iddiası nedir? Tek bir basit önerme olarak yaz.`,
+  a:`<b>"Veriyol 150 çalışanını işten çıkardı."</b> Haberde bu düz ifade hiç geçmiyor; ana iddiayı örtmeceden arındırarak yazman gerekiyor.`},
+ {q:`(1) "verimlilik odaklı yeni bir yapılanma" ve (2) "yollarını ayırdı": hangi dil aracı? Düz hâli ne?`,
+  a:`<b>Örtmece / spin + moda sözcük.</b> Düz hâli: "Veriyol 150 çalışanını işten çıkardı."`},
+ {q:`(1)'de ifade tırnak içinde, (2)'de tırnaksız. Bu fark ne anlatıyor?`,
+  a:`<p>(1) <b>kurallı alıntı</b>: İfade şirketin; haber onu tırnakla şirkete mal ediyor ve mesafe koyuyor.</p><p>(2)'de ise "yollarını ayırdı" tırnaksız: Haber şirketin örtmecesini <b>kendi sesiyle</b> kullanıyor. Tarafsız bir haber "işten çıkardı" derdi.</p>`},
+ {q:`(3) "çoğu": veri var mı? Kaynağın sorunu ne?`,
+  a:`Veri yok (NC). Söyleyen şirket sözcüsü, yani kararı veren tarafın kendisi. Çalışanlara sorulmamış.`},
+ {q:`(4) "yüzde 8 değer kazandı": Bu bilgi ne işe yarıyor?`,
+  a:`Rakam doğru olabilir ama işten çıkarmanın doğru bir karar olduğunu kanıtlamaz; sadece yatırımcıların tepkisini gösterir. Haberde, kararın "başarılı" olduğu izlenimini veren bir olgu olarak duruyor. Ayrıca hangi süre içinde: bir günde mi, bir haftada mı?`},
+ {q:`(4), (6) ve (8) birlikte hangi <b>örtük sonucu</b> düşündürüyor?`,
+  a:`"Karar doğru ve olağan: Piyasa onayladı, herkes böyle yapıyor, çalışanlara da cömert davranıldı." (6) aynı zamanda örtük bir popülerliğe başvuru: "Rakipler de yaptı."`},
+ {q:`(7) ve (8) neyi sezdiriyor?`,
+  a:`<ul><li>(7): Şirket zor durumda değildi; işten çıkarma bir zorunluluk değil, tercih. Bu cümle örtük sonucu zayıflatıyor.</li><li>(8) "bir kısmına": <b>hepsine değil</b>. "Yasal haklarının üzerinde": ne kadar üzerinde? (BLZ)</li></ul>`},
+ {q:`Haberi yalnızca doğrulanabilir bilgilerle üç cümlede yeniden yaz.`,
+  a:`Veriyol 150 çalışanını işten çıkardı ve bunu "verimlilik odaklı yeni bir yapılanma" olarak açıkladı. Şirketin hisseleri açıklamanın ardından %8 değer kazandı. Sendika temsilcisi, şirketin geçen çeyrekte rekor kâr açıkladığını hatırlattı.`}
+ ]}
+];
+
+const R2 = [
+ {t:`Görev 1 · Bulanıklık avı`, g:`SL ya da SD yaz, kaynağı göster. Sonra (b)'yi bulanıklıktan arındırarak yeniden yaz.`,
+  q:`<ul><li>a) Kız, kuyruğu görünce vazgeçti.</li><li>b) Ayşe, annesini mutfakta yemek yaparken gördü.</li><li>c) Yaşlı kadın ve adam parkta oturuyordu.</li><li>d) Yeni müdür çok sıkı biri.</li></ul>`,
+  a:`<ul><li>a) SL: "kuyruk" (sıra / hayvanın kuyruğu)</li><li>b) SD: Yemek yapan Ayşe mi, annesi mi? Arındırılmış: "Ayşe, mutfakta yemek yapan annesini gördü."</li><li>c) SD: "Yaşlı" yalnızca kadını mı, ikisini birden mi niteliyor?</li><li>d) SL: "sıkı" (disiplinli / cimri)</li></ul>`},
+ {t:`Görev 2 · Belirsizlik radarı`, g:`B (bulanık) / Biz (belirsiz) / İkisi de. Tek cümleyle gerekçelendir.`,
+  q:`<ul><li>a) "pahalı"</li><li>b) "dolu" (Bu sabah dolu yağdı. / Bardak dolu.)</li><li>c) "hafif yemek"</li><li>d) "kalabalık sınıf"</li></ul>`,
+  a:`<ul><li>a) Biz: Kaç liradan sonra pahalı?</li><li>b) B: İki ayrı anlam (buz yağışı / boş olmayan).</li><li>c) İkisi de: "hafif" az kalorili mi, az miktarda mı (B)? Ne kadar hafif (Biz)?</li><li>d) Biz: Kaç öğrenciden sonra kalabalık?</li></ul>`},
+ {t:`Görev 3 · Yananlam laboratuvarı`, g:`Çelişki (birincil ihlal) mi, sürpriz (ikincil ihlal) mi?`,
+  q:`<ul><li>a) Ağaçsız bir orman</li><li>b) Denize hiç girmemiş bir balıkçı</li><li>c) Tek kişilik bir koro</li><li>d) Dişsiz bir köpekbalığı</li><li>e) "Bu şehir bir arı kovanı." Eğretileme hangi yananlamla çalışıyor?</li></ul>`,
+  a:`<ul><li>a) Çelişki: Orman tanım gereği ağaçlardan oluşur.</li><li>b) Sürpriz: Balıkçı kıyıdan da balık tutabilir; denize girmek tipik ama zorunlu değil.</li><li>c) Çelişki: Koro tanım gereği bir topluluktur.</li><li>d) Sürpriz: Keskin dişler tipik, ama dişsiz bir köpekbalığı hâlâ köpekbalığıdır.</li><li>e) İkincil: Kovanın tanımı (arıların yuvası) değil, tipik özellikleri (kalabalık, sürekli hareket, çalışkanlık) aktarılıyor.</li></ul>`},
+ {t:`Görev 4 · Gizli mesaj çözücü`, g:`Retorik soruyu bildirme cümlesine çevir; ironi mi kasıt mı karar ver; kıyas sınıfını bul.`,
+  q:`<ul><li>a) "Bunu yapmak için dâhi olmak mı gerekiyor?" Bildirme cümlesine çevir.</li><li>b) Her gün yarım saat geç gelen arkadaşın bir gün 5 dakika erken gelince: "Vay, bugün çok dakiksin!" İroni mi, kasıt mı?</li><li>c) "Bu kurs çok daha verimli." Eksik kıyas sınıfı nedir?</li><li>d) "Sana kaç kere söyleyeceğim?" Ne söylendi, ne kastedildi?</li></ul>`,
+  a:`<ul><li>a) "Bunu yapmak için dâhi olmak gerekmez." (Yani kolay.)</li><li>b) <b>Kasıt:</b> Gerçekten erken geldi, söylenen doğru. Ama "bugün" sözcüğü bir <b>sezdirim</b> taşıyor: genelde dakik değilsin.</li><li>c) Hangi kursa göre? Eski kursa mı, rakip kurslara mı, kendi kendine çalışmaya mı?</li><li>d) RS. Söylenen: "Sana defalarca söyledim." Kastedilen: "Beni dinlemiyorsun" (sitem).</li></ul>`},
+ {t:`Görev 5 · Niceleyici ayarı`, g:`(i) Bir karşı örnek bul. (ii) Fikri savunulabilir zayıf bir genellemeye dönüştür.`,
+  q:`<ul><li>a) Bu okulun mezunları her zaman iyi iş bulur.</li><li>b) Hiçbir politikacı doğruyu söylemez.</li><li>c) Kahve içenler daha uzun yaşar. (Niceleyici yok; bir de gizli kıyas var.)</li></ul>`,
+  a:`<ul><li>a) İş bulamayan tek bir mezun yeter. Zayıf: "Bu okulun mezunlarının çoğu kısa sürede iş buluyor."</li><li>b) Doğruyu söyleyen tek bir politikacı yeter. Zayıf: "Bazı politikacılar zaman zaman gerçeği çarpıtır."</li><li>c) Okur "tüm kahve içenler" diye anlar; erken ölen bir kahve tiryakisi çürütür. Ayrıca ÖG: Kimlere göre daha uzun? Hiç içmeyenlere mi, çay içenlere mi? Zayıf: "Bazı araştırmalar, ölçülü kahve tüketimiyle daha uzun yaşam arasında bir ilişki buluyor."</li></ul>`},
+ {t:`Görev 6 · Anlamın üç katmanı`, g:`Önerme içeriği, retorik kuvvet, sezdirim.`,
+  q:`<ul><li>a) (1) "Kantinde tost 40 TL'den 50 TL'ye çıktı." (2) "Kantin, tostu öğrencilerin ulaşamayacağı bir lükse dönüştürdü." Aynı önerme mi? İkinci cümle fazladan ne yapıyor?</li><li>b) İş görüşmesinden sonra gelen e-posta: "Zaman ayırdığınız için teşekkür ederiz, başvurunuzu dosyamızda tutacağız." Ne söylendi, ne sezdirildi?</li><li>c) "Bu sınavı ben bile geçtim." Ne sezdiriliyor?</li></ul>`,
+  a:`<ul><li>a) Önerme aynı değil, ikincisi daha fazlasını iddia ediyor: "ulaşamayacağı lüks" doğrulanamaz bir abartı. Fiyat artışı olgusunu öfke ve abartıyla süslüyor (RT).</li><li>b) Söylenen: teşekkür ve dosyada tutma. Sezdirilen: <b>işe alınmadın.</b></li><li>c) "Bile" sözcüğü: Sınav kolaydı ya da konuşan genelde başarılı değil.</li></ul>`},
+ {t:`Görev 7 · Tuzak avı`, g:`Sor: Burada öncül-sonuç var mı? Süslü sözcüğü çıkar; geriye hangi iddia kalıyor?`,
+  q:`<ol><li>"Ünlü oyuncu Deniz Ay da bu şampuanı kullanıyor!"</li><li>"Sokaktaki minicik patiler yardımınızı bekliyor; bir kap mama onların hayatı demek."</li><li>"Hâlâ eski usul ders mi çalışıyorsun? Yeni nesil öğrenciler yapay zekâyla öğreniyor."</li><li>Gazeteci: "Metro inşaatı neden iki yıl gecikti?" Müdür: "Asıl şehre kazandırdığımız yeşil alanları konuşalım."</li><li>"Bu 'gazeteci' herhalde haberi rüyasında görmüş."</li><li>Meyve suyu kutusunda büyük harflerle: "%0 YAĞ!" (Küçük punto: "Meyve suları doğal olarak yağ içermez.")</li><li>"Sinerji odaklı dönüşüm kapsamında ekip yapımızı yeniden kurguladık."</li></ol>`,
+  a:`<ol><li>Popülerliğe başvuru + sezdirimden faydalanma: Oyuncunun saçının bu şampuan sayesinde güzel olduğu sezdiriliyor ama söylenmiyor.</li><li>Şirinliğe + merhamete başvuru.</li><li>Yeniliğe başvuru + yönlendirici soru + hafif alay ("eski usul").</li><li>Duman perdesi.</li><li>Korkutucu tırnak + alaya başvuru.</li><li>Sezdirimden faydalanma: Zaten hiçbir meyve suyunda yağ olmaz, ama özel bir avantajmış gibi sunuluyor.</li><li>Jargon / moda sözcük + örtmece: Muhtemelen işten çıkarma ya da görev değişikliği; düz hâli söylenmiyor.</li></ol>`},
+ {t:`Görev 8 · Final vaka`, g:`En az 5 olgu ya da tuzak bul; alıntı ve kodla (SL, SD, BLZ, RS, ÖG, NC, SZ, RT). "Fiyatlarımız oldukça makul" ifadesi neye göre söylenmiş?`,
+  q:`<blockquote>"Şehrin en hızlı büyüyen dil kursu Lingo artık kampüsün yanında! Sıkıcı gramer kitaplarıyla daha ne kadar vakit kaybedeceksiniz? Devrim niteliğindeki 'akıllı tekrar' yöntemimizle öğrencilerimiz 3 kat daha hızlı konuşuyor*. Fiyatlarımız ise oldukça makul. Klasik yöntemleri savunan 'deneyimli' hocalar bize kızabilir; ama sonuçlar ortada. Üstelik ilk ders ücretsiz**!"<br><small>*Kendi öğrencilerimiz arasında yaptığımız ankete göre. **Kayıt ücreti hariçtir.</small></blockquote>`,
+  a:`<ul><li>"En hızlı büyüyen": popülerliğe başvuru + ÖG (hangi kurslara göre, hangi veriyle?)</li><li>"Daha ne kadar vakit kaybedeceksiniz?": RS + yönlendirici soru + yeniliğe başvuru ("sıkıcı gramer kitapları")</li><li>"Devrim niteliğindeki 'akıllı tekrar'": moda sözcük / jargon (RT)</li><li>"3 kat daha hızlı*": ÖG (neye göre 3 kat?) + rakam tuzağı + SZ (dipnot: yalnızca kendi anketleri)</li><li>"Oldukça makul": ÖG + BLZ. <b>Neye göre olduğu söylenmiyor</b>; diğer kurslara mı, piyasaya mı, belli değil.</li><li>'deneyimli': korkutucu tırnak + alaya başvuru</li><li>"Sonuçlar ortada": kanıt yerine geçen boş iddia (RT); hangi sonuçlar?</li><li>"İlk ders ücretsiz**": sezdirimden faydalanma. Dipnota göre kayıt ücreti var, yani gerçekte ücretsiz değil.</li></ul>`}
+];
+
 function store(){ try{ return window.localStorage; }catch(e){ return null; } }
 function render(list, el, prefix, isTask){
   el.innerHTML = list.map((it,i)=>{
@@ -631,6 +777,9 @@ function render(list, el, prefix, isTask){
 render(H, document.getElementById("qs-haber"), "a", false);
 render(R, document.getElementById("qs-retorik"), "b", true);
 render(Q, document.getElementById("qs-bul"), "c", false);
+document.getElementById("passages").innerHTML = P.map((p,pi)=>`<div class="pblock"><div class="passage"><p class="src">Paragraf ${pi+1} · ${p.src}</p><h3>${p.title}</h3><p>${p.s.map((x,i)=>`<span class="n">(${i+1})</span>${x}`).join(" ")}</p></div><div class="qs" id="qs-p${pi+1}" style="display:grid;gap:14px"></div></div>`).join("");
+P.forEach((p,pi)=> render(p.qs, document.getElementById("qs-p"+(pi+1)), "p"+(pi+1), false));
+render(R2, document.getElementById("qs-ekretorik"), "e", true);
 
 const ls = store();
 document.querySelectorAll("textarea").forEach(t=>{
@@ -638,13 +787,15 @@ document.querySelectorAll("textarea").forEach(t=>{
   t.addEventListener("input", ()=>{ try{ ls && ls.setItem("eo-"+t.id, t.value); }catch(e){} });
 });
 
-const views = ["terimler","bul","haber","retorik","notlar"];
+const views = ["terimler","bul","haber","retorik","ekhaber","ekretorik","notlar"];
 function current(){ const h = location.hash.slice(1); return views.includes(h) ? h : "terimler"; }
 function show(){
   const v = current();
   document.querySelectorAll("section.view").forEach(s=> s.hidden = s.dataset.view !== v);
   document.querySelectorAll("nav.tabs a").forEach(a=> a.setAttribute("aria-current", a.dataset.view===v ? "true":"false"));
-  const hasAns = v==="haber" || v==="retorik" || v==="bul";
+  const act = document.querySelector('nav.tabs a[aria-current="true"]'), nav = document.querySelector("nav.tabs");
+  if (act && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = act.offsetLeft - 16;
+  const hasAns = ["haber","retorik","bul","ekhaber","ekretorik"].includes(v);
   document.querySelector(".tools").hidden = !hasAns;
 }
 window.addEventListener("hashchange", ()=>{ show(); window.scrollTo(0,0); });
